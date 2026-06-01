@@ -1,61 +1,25 @@
 ---
-import "../global.css";
+import { info } from '../lib/info'
+import '../styles/global.css'
 ---
 
 <!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="generator" content={Astro.generator} />
-        <meta
-            name="description"
-            content="Jesus Camacho - Desarrollador Web Full Stack"
-        />
-        <title>Junior Dev - Portafolio</title>
-    </head>
-    <body>
-        <div class="body-c">
-            <slot />
-        </div>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={`${info.name} - ${info.title}. ${info.mainTech}`} />
+    <meta name="keywords" content="desarrollador web, full stack, javascript, typescript, node.js, react, nestjs, portafolio, jesus camacho" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>{info.name} &middot; {info.title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
-
-<style is:global>
-    html,
-    body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background: url("/vtJYvr2.png");
-        background-size: contain;
-        background-repeat: none;
-    }
-    .body-c {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        scroll-behavior: smooth;
-        overflow: auto;
-    }
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: var(--bg-dark);
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: var(--primary-accent);
-        border-radius: 5px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: var(--accent-bright);
-    }
-</style>

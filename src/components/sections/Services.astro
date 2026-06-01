@@ -1,0 +1,98 @@
+---
+import { services } from '../../lib/services'
+---
+
+<section class="section" id="services">
+  <div class="services-header">
+    <div class="section-label">Servicios</div>
+    <h2 class="section-title">Lo que puedo construir</h2>
+    <p class="section-subtitle">
+      Desde APIs escalables hasta aplicaciones de escritorio.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    {services.map((s) => (
+      <div class="service-card">
+        <div class="service-icon">{s.icon}</div>
+        <h3 class="service-title">{s.title}</h3>
+        <p class="service-desc">{s.description}</p>
+        <ul class="service-features">
+          {s.features.map((f) => (
+            <li class="service-feature">{f}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .services-header { margin-bottom: 3rem; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .service-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--text-primary);
+  }
+
+  .service-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+
+  .service-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .service-feature {
+    font-size: 0.82rem;
+    color: var(--text-tertiary);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .service-feature::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+</style>

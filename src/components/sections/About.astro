@@ -1,0 +1,165 @@
+---
+import { info } from '../../lib/info'
+---
+
+<section class="section" id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-label">Sobre mí</div>
+      <h2 class="section-title">Filosofía de desarrollo</h2>
+      <p class="about-philosophy">{info.philosophy}</p>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-value">100%</span>
+          <span class="stat-label">Productivo en JS/TS</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">7+</span>
+          <span class="stat-label">Proyectos construidos</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">4</span>
+          <span class="stat-label">Lenguajes explorados</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="tech-orbit">
+        <div class="orbit-center">
+          <span class="orbit-label">JS/TS</span>
+        </div>
+        {['React', 'Node.js', 'NestJS', 'Next.js', 'PostgreSQL', 'Docker', 'Astro', 'Tauri', 'Java', 'Rust', 'Express', 'Prisma'].map((tech, i) => {
+          const angle = (i / 12) * 360
+          const radius = 140
+          const x = Math.cos((angle * Math.PI) / 180) * radius
+          const y = Math.sin((angle * Math.PI) / 180) * radius
+          return (
+            <span
+              class="orbit-item"
+              style={`left: calc(50% + ${x}px); top: calc(50% + ${y}px); animation-delay: ${i * 0.15}s`}
+            >
+              {tech}
+            </span>
+          )
+        })}
+        <div class="orbit-ring ring-1" />
+        <div class="orbit-ring ring-2" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-philosophy {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .about-stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    font-weight: 500;
+  }
+
+  .about-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tech-orbit {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .orbit-center {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 0 40px rgba(37, 99, 235, 0.2);
+  }
+
+  .orbit-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+  }
+
+  .orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    pointer-events: none;
+  }
+
+  .ring-1 { width: 240px; height: 240px; }
+  .ring-2 { width: 320px; height: 320px; }
+
+  .orbit-item {
+    position: absolute;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    white-space: nowrap;
+    animation: floatItem 3s ease-in-out infinite;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @keyframes floatItem {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+    50% { transform: translate(-50%, -50%) translateY(-5px); }
+  }
+
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .about-visual { display: none; }
+  }
+</style>

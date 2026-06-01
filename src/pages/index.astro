@@ -1,16 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Navbar from "../components/navbar.astro";
-import Presentacion from "../components/presentacion.astro";
-import SkillsC from "../components/skills.tsx";
-import Proyectos from "../components/proyectos.astro";
-import Contacto from "../components/contacto.astro";
-import Footer from "../components/footer.astro";
+import Navbar from "../components/sections/Navbar.astro";
+import Hero from "../components/sections/Hero.astro";
+import About from "../components/sections/About.astro";
+import Skills from "../components/sections/Skills";
+import Projects from "../components/sections/Projects.astro";
+import Services from "../components/sections/Services.astro";
+import Contact from "../components/sections/Contact.astro";
+import Footer from "../components/sections/Footer.astro";
 ---
 
 <Layout>
-    <Navbar />
-    <Presentacion />
-    <Proyectos />
-    <SkillsC client:load />
+  <Navbar />
+  <Hero />
+  <About />
+  <Skills client:load />
+  <Projects />
+  <Services />
+  <Contact />
+  <Footer />
 </Layout>

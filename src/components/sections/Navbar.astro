@@ -1,0 +1,103 @@
+---
+import { info } from '../../lib/info'
+---
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="#hero" class="navbar-logo">
+      <span class="logo-bracket">&#123;</span>
+      <span class="logo-text">junior</span>
+      <span class="logo-bracket">&#125;</span>
+    </a>
+
+    <div class="navbar-links">
+      <a href="#about" class="nav-link">Sobre mí</a>
+      <a href="#skills" class="nav-link">Stack</a>
+      <a href="#projects" class="nav-link">Proyectos</a>
+      <a href="#services" class="nav-link">Servicios</a>
+    </div>
+
+    <a href="#contact" class="navbar-cta">Contacto</a>
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0.8rem 2rem;
+  }
+
+  .navbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1.5rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .logo-bracket {
+    color: var(--accent);
+    font-weight: 400;
+    opacity: 0.5;
+  }
+
+  .logo-text { color: var(--text-primary); }
+
+  .navbar-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    font-weight: 500;
+  }
+
+  .nav-link:hover { color: var(--text-primary); }
+
+  .navbar-cta {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    background: var(--text-primary);
+    color: white;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .navbar-cta:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .navbar-links { display: none; }
+    .navbar { padding: 0.6rem 1rem; }
+    .navbar-inner { padding: 0.5rem 1rem; }
+  }
+</style>
