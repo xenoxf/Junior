@@ -5,13 +5,13 @@ const gh = 'https://github.com/xenooxf'
 export const projects: Project[] = [
   {
     id: 'kire',
-    name: 'Kire / LearnYos',
+    name: 'Klerk / LearnYos',
     description: 'Plataforma de aprendizaje activo con IA',
-    longDescription: 'Plataforma educativa estilo Quizlet/Duolingo con Gemini AI integrado. El frontend (LearnYos) en Next.js 14 ya está desplegado. El backend en NestJS 10 con TypeORM gestiona exámenes generados por IA, flashcards, notas, chat, créditos y un sistema completo de gamificación.',
+    longDescription: 'Plataforma educativa estilo Quizlet/Duolingo con Gemini AI integrado. El frontend (LearnYos) en Next.js 14 ya está desplegado. El backend en NestJS 10 (Klerk) con TypeORM gestiona exámenes generados por IA, flashcards, notas, chat, créditos y un sistema completo de gamificación.',
     image: '/images/learnyos.jpg',
-    tags: ['fullstack', 'IA', 'educación'],
-    tech: ['NestJS', 'Next.js 14', 'TypeORM', 'PostgreSQL', 'Gemini AI', 'Tailwind CSS', 'Clerk', 'TanStack Query'],
-    githubUrl: `${gh}/kire`,
+    tags: ['Fullstack', 'IA', 'educación'],
+    tech: ['NestJS', 'Next.js 14', 'TypeORM', 'PostgreSQL', 'Gemini AI', 'Gemini API', 'Render', 'Vercel'],
+    githubUrl: `${gh}/learnyos-x2`,
     demoUrl: 'https://learnyos.vercel.app',
     backendUrl: 'https://klerk.onrender.com',
     status: 'production',
@@ -38,7 +38,7 @@ export const projects: Project[] = [
     maintenance: 'active',
     category: 'frontend',
     isMainTech: true,
-    year: 2025,
+    year: 2026,
   },
   {
     id: 'kluk-api',
@@ -81,7 +81,7 @@ export const projects: Project[] = [
     maintenance: 'archived',
     category: 'backend',
     isMainTech: true,
-    year: 2024,
+    year: 2025,
   },
   {
     id: 'aximu',

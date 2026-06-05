@@ -33,12 +33,16 @@ import { services } from '../../lib/services'
   .services-header { margin-bottom: 3rem; }
 
   .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    width: 100%;
+    display: flex;
     gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .service-card {
+    width: 100%;
+    max-width: 350px;
     padding: 2rem;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
