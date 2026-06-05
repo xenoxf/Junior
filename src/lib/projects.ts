@@ -1,6 +1,6 @@
 import type { Project } from '../types'
 
-const gh = 'https://github.com/xenooxf'
+const gh = 'https://github.com/xenoxf'
 
 export const projects: Project[] = [
   {
