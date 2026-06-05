@@ -20,6 +20,10 @@ const items = [
         {info.name}
         <span class="hero-title-sub">{info.title}</span>
       </h1>
+      <p class="hero-aliases">
+        <span class="alias-label">También conocido como:</span>
+        {info.aliases.slice(1, 5).join(' · ')}
+      </p>
       <p class="hero-desc">{info.bio}</p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-primary">
@@ -158,6 +162,19 @@ const items = [
     font-weight: 600;
     margin-top: 0.3rem;
     letter-spacing: -0.02em;
+  }
+
+  .hero-aliases {
+    font-size: 0.82rem;
+    color: var(--text-tertiary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .alias-label {
+    color: var(--accent-yellow);
+    font-weight: 500;
+    margin-right: 0.3rem;
   }
 
   .hero-desc {

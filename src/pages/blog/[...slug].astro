@@ -1,0 +1,192 @@
+---
+import type { GetStaticPaths } from 'astro'
+import Layout from '../../layouts/Layout.astro'
+import { blogPosts } from '../../lib/blog'
+import { info } from '../../lib/info'
+
+export const getStaticPaths = (() => {
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }))
+}) satisfies GetStaticPaths
+
+const { post } = Astro.props
+const title = `${post.title} · Blog · ${info.name}`
+const description = post.description
+const url = `https://xenooxf.vercel.app/blog/${post.slug}`
+---
+
+<Layout>
+  <div class="blog-post">
+    <nav class="blog-post-nav">
+      <a href="/blog" class="blog-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Volver al blog
+      </a>
+    </nav>
+
+    <article class="blog-article">
+      <header class="blog-article-header">
+        <time class="blog-article-date">{post.date}</time>
+        <h1 class="blog-article-title">{post.title}</h1>
+        <p class="blog-article-desc">{post.description}</p>
+        <div class="blog-article-meta">
+          <span class="blog-article-author">Por {post.author}</span>
+          <div class="blog-article-tags">
+            {post.tags.map((tag) => (
+              <span class="blog-tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      <div class="blog-article-content" set:html={post.contentHtml} />
+    </article>
+  </div>
+</Layout>
+
+<style>
+  .blog-post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 6rem 2rem 4rem;
+  }
+
+  .blog-post-nav {
+    margin-bottom: 2rem;
+  }
+
+  .blog-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .blog-back:hover {
+    color: var(--accent-yellow);
+  }
+
+  .blog-article-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .blog-article-date {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .blog-article-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0.6rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .blog-article-desc {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .blog-article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-article-author {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .blog-article-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    background: var(--accent-yellow-glow);
+    border: 1px solid rgba(234, 179, 8, 0.15);
+    color: var(--accent-yellow);
+    font-weight: 500;
+  }
+
+  .blog-article-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .blog-article-content :global(h2) {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 2rem 0 0.8rem;
+  }
+
+  .blog-article-content :global(h3) {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 1.5rem 0 0.6rem;
+  }
+
+  .blog-article-content :global(p) {
+    margin-bottom: 0.8rem;
+  }
+
+  .blog-article-content :global(li) {
+    margin-bottom: 0.4rem;
+    padding-left: 0.5rem;
+  }
+
+  .blog-article-content :global(strong) {
+    color: var(--text-primary);
+  }
+
+  .blog-article-content :global(pre) {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 1rem 1.2rem;
+    border-radius: var(--radius-md);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+    line-height: 1.5;
+  }
+
+  .blog-article-content :global(code) {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: var(--bg-secondary);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .blog-post {
+      padding: 5rem 1.25rem 3rem;
+    }
+    .blog-article-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>

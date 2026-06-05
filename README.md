@@ -1,47 +1,27 @@
-# Astro Starter Kit: Basics
+# Jesus Adrian Camacho Casierra - Portafolio
 
-```sh
-npm create astro@latest -- --template basics
-```
+**Jesus Adrian Camacho Casierra** (también conocido como **Junior Adrian**, **Adrian Camacho** o **Adrian Casierra**) es un desarrollador full stack colombiano de 15 años de Cali, Colombia.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Stack
 
-## 🚀 Project Structure
+JavaScript · TypeScript · React · Node.js · NestJS · PostgreSQL · Next.js · Docker · Astro · Tauri
 
-Inside of your Astro project, you'll see the following folders and files:
+## Proyectos
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+- Kire / Klerk / LearnYos - Plataforma educativa con IA
+- Sistek Pro - Sitio corporativo
+- KLUK API - E-commerce REST API
+- KLUK Dashboard - Dashboard administrativo
+- Back-OS - Backend con Express/Prisma
+- Aximu v2 - E-commerce API (Spring Boot)
+- Juntxo Player - Reproductor MP3 en Java
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Contacto
 
-## 🧞 Commands
+- GitHub: [@xenoxf](https://github.com/xenoxf)
+- Email: jesuscasierra928@gmail.com
+- WhatsApp: +57 315 435 2572
 
-All commands are run from the root of the project, from a terminal:
+## Construido con
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-# Junior
+[Astro](https://astro.build) + React + TypeScript

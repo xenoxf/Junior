@@ -3,10 +3,29 @@ import { info } from '../lib/info'
 import '../styles/global.css'
 
 const title = `${info.name} · ${info.title}`
-const description = `${info.name} — ${info.bio}`
+const description = `${info.shortBio}`
 const image = '/portfolio-full.png'
 const url = 'https://xenooxf.vercel.app'
 const domain = 'xenooxf.vercel.app'
+const allKeywords = [
+  ...info.aliases,
+  info.name,
+  info.title,
+  'desarrollador web',
+  'full stack',
+  'javascript',
+  'typescript',
+  'node.js',
+  'react',
+  'nestjs',
+  'portafolio',
+  'desarrollador colombiano',
+  'programador de 15 años',
+  'cali colombia',
+  'desarrollador junior',
+  'programador colombia',
+  'web developer colombia',
+].join(', ')
 ---
 
 <!doctype html>
@@ -21,22 +40,23 @@ const domain = 'xenooxf.vercel.app'
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="desarrollador web, full stack, javascript, typescript, node.js, react, nestjs, portafolio, jesus camacho, cali colombia" />
+    <meta name="keywords" content={allKeywords} />
     <meta name="author" content={info.fullName} />
     <meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 <meta name="google-site-verification" content="bUWA640cYC5xTz1CRqp5SlH2r6aH8-E_nhgSWgb3T9I" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={url} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={`${info.name} · ${info.title} · ${info.location}`} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={`${url}${image}`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content={info.name} />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={`${info.name} · ${info.title}`} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${url}${image}`} />
 
@@ -49,15 +69,28 @@ const domain = 'xenooxf.vercel.app'
       name: info.fullName,
       givenName: "Jesus Adrian",
       familyName: "Camacho Casierra",
+      additionalName: info.aliases,
       jobTitle: info.title,
-      description: info.bio,
+      description: info.shortBio,
       url: url,
       email: info.email,
       image: `${url}${image}`,
+      gender: "Male",
+      nationality: { "@type": "Country", name: "Colombia" },
+      birthPlace: { "@type": "City", name: "Cali", address: { "@type": "PostalAddress", addressCountry: "CO" } },
       address: { "@type": "PostalAddress", addressLocality: "Cali", addressCountry: "CO" },
-      sameAs: [info.githubUrl, info.whatsappUrl],
-      knowsAbout: ["JavaScript", "TypeScript", "React", "Node.js", "NestJS", "PostgreSQL", "Next.js"],
+      sameAs: [info.githubUrl, info.whatsappUrl, `mailto:${info.email}`],
+      knowsAbout: ["JavaScript", "TypeScript", "React", "Node.js", "NestJS", "PostgreSQL", "Next.js", "Docker", "Astro", "Tauri", "Express", "Prisma"],
       alumniOf: "SENA",
+    })} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: `${info.name} - Portafolio`,
+      url: url,
+      description: info.shortBio,
+      author: { "@type": "Person", name: info.fullName },
     })} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />

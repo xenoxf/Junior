@@ -51,4 +51,8 @@ export type Info = {
   githubUrl: string
   email: string
   location: string
+  age: number
+  nationality: string
+  aliases: string[]
+  shortBio: string
 }

@@ -1,0 +1,175 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { blogPosts } from '../../lib/blog'
+import { info } from '../../lib/info'
+
+const title = `Blog · ${info.name}`
+const description = `Artículos y tutoriales de ${info.name} — desarrollo web full stack, JavaScript, TypeScript, NestJS, y más.`
+---
+
+<Layout>
+  <div class="blog-page">
+    <nav class="blog-nav">
+      <a href="/" class="blog-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Volver al inicio
+      </a>
+    </nav>
+
+    <header class="blog-header">
+      <h1 class="blog-title">Blog</h1>
+      <p class="blog-subtitle">Artículos sobre desarrollo web, tecnología y mi experiencia como programador colombiano de 15 años.</p>
+    </header>
+
+    <div class="blog-list">
+      {blogPosts.map((post) => (
+        <a href={`/blog/${post.slug}`} class="blog-card">
+          <div class="blog-card-body">
+            <time class="blog-date">{post.date}</time>
+            <h2 class="blog-card-title">{post.title}</h2>
+            <p class="blog-card-desc">{post.description}</p>
+            <div class="blog-card-tags">
+              {post.tags.map((tag) => (
+                <span class="blog-tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+          <span class="blog-card-arrow">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .blog-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 6rem 2rem 4rem;
+  }
+
+  .blog-nav {
+    margin-bottom: 3rem;
+  }
+
+  .blog-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .blog-back:hover {
+    color: var(--accent-yellow);
+  }
+
+  .blog-header {
+    margin-bottom: 3rem;
+  }
+
+  .blog-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.03em;
+  }
+
+  .blog-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .blog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .blog-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    transition: all var(--transition-normal);
+  }
+
+  .blog-card:hover {
+    border-color: var(--accent-yellow);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .blog-card-body {
+    flex: 1;
+  }
+
+  .blog-date {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .blog-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0.4rem 0 0.5rem;
+    line-height: 1.4;
+  }
+
+  .blog-card-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+  }
+
+  .blog-card-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    background: var(--accent-yellow-glow);
+    border: 1px solid rgba(234, 179, 8, 0.15);
+    color: var(--accent-yellow);
+    font-weight: 500;
+  }
+
+  .blog-card-arrow {
+    color: var(--text-tertiary);
+    font-size: 1.2rem;
+    margin-top: 0.3rem;
+    transition: all var(--transition-fast);
+  }
+
+  .blog-card:hover .blog-card-arrow {
+    color: var(--accent-yellow);
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 600px) {
+    .blog-page {
+      padding: 5rem 1.25rem 3rem;
+    }
+    .blog-title {
+      font-size: 1.8rem;
+    }
+    .blog-card {
+      padding: 1.2rem;
+    }
+  }
+</style>
