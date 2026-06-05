@@ -5,11 +5,11 @@ import { info } from '../../lib/info'
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <span class="footer-logo">
+      <a href="#hero" class="footer-logo">
         <span class="logo-bracket">&#123;</span>
         <span>junior</span>
         <span class="logo-bracket">&#125;</span>
-      </span>
+      </a>
       <p class="footer-bio">
         {info.title} &middot; JS/TS specialist &middot; {info.location}
       </p>
@@ -17,6 +17,7 @@ import { info } from '../../lib/info'
 
     <div class="footer-links">
       <a href="#about" class="footer-link">Sobre mí</a>
+      <a href="#skills" class="footer-link">Stack</a>
       <a href="#projects" class="footer-link">Proyectos</a>
       <a href="#services" class="footer-link">Servicios</a>
       <a href="#contact" class="footer-link">Contacto</a>
@@ -51,7 +52,7 @@ import { info } from '../../lib/info'
   }
 
   .footer-inner {
-    max-width: 1200px;
+    max-width: var(--max-width);
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -67,11 +68,11 @@ import { info } from '../../lib/info'
     gap: 0.1rem;
     font-weight: 700;
     font-size: 1rem;
+    text-decoration: none;
   }
 
   .logo-bracket {
-    color: var(--accent);
-    opacity: 0.5;
+    color: var(--accent-yellow);
     font-weight: 400;
   }
 
@@ -114,13 +115,13 @@ import { info } from '../../lib/info'
   }
 
   .footer-social-link:hover {
-    color: var(--text-primary);
-    border-color: var(--border-hover);
-    background: var(--bg-secondary);
+    color: var(--accent-yellow);
+    border-color: var(--accent-yellow);
+    background: var(--accent-yellow-glow);
   }
 
   .footer-bottom {
-    max-width: 1200px;
+    max-width: var(--max-width);
     margin: 0 auto;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
@@ -143,7 +144,7 @@ import { info } from '../../lib/info'
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--accent-yellow);
   }
 
   @media (max-width: 768px) {

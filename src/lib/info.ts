@@ -1,11 +1,11 @@
 import type { Info } from '../types'
 
 export const info: Info = {
-  name: 'Jesus Camacho',
+  name: 'Jesus Adrian Camacho Casierra',
   fullName: 'Jesus Adrian Camacho Casierra',
   title: 'Full Stack Developer',
   tagline: 'Construyendo productos digitales con JS/TS.',
-  bio: 'Desarrollador full stack con enfoque en JavaScript y TypeScript. Creo APIs robustas, interfaces modernas y experiencias fluidas. Me impulsa la curiosidad técnica: cada proyecto es una oportunidad para dominar algo nuevo.',
+  bio: 'Desarrollador full stack especializado en JavaScript y TypeScript. Creo APIs robustas, interfaces modernas y experiencias fluidas. Me impulsa la curiosidad técnica: cada proyecto es una oportunidad para dominar algo nuevo.',
   philosophy: 'Creo en el código limpio, la arquitectura pensada y el aprendizaje constante. Mi stack principal es JS/TS — ahí construyo productos reales. Java, Rust y otros lenguajes los exploro porque la mejor manera de crecer es salir de lo conocido.',
   mainTech: 'JavaScript / TypeScript',
   learningMessage: '100% de mi experiencia productiva está en JS/TS. El resto (Java, Rust, etc.) es exploración activa — aprendo haciendo.',

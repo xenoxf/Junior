@@ -6,8 +6,14 @@ import { info } from '../../lib/info'
   <div class="about-grid">
     <div class="about-text">
       <div class="section-label">Sobre mí</div>
-      <h2 class="section-title">Filosofía de desarrollo</h2>
+      <h2 class="section-title">De la curiosidad al <span class="heading-highlight">código</span></h2>
       <p class="about-philosophy">{info.philosophy}</p>
+
+      <div class="about-highlight">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>100% de mi experiencia productiva en <strong>JS/TS</strong>. Java, Rust y otros son exploración activa.</span>
+      </div>
+
       <div class="about-stats">
         <div class="stat">
           <span class="stat-value">100%</span>
@@ -18,8 +24,8 @@ import { info } from '../../lib/info'
           <span class="stat-label">Proyectos construidos</span>
         </div>
         <div class="stat">
-          <span class="stat-value">4</span>
-          <span class="stat-label">Lenguajes explorados</span>
+          <span class="stat-value">{info.location.split(',')[0]}</span>
+          <span class="stat-label">Ubicación</span>
         </div>
       </div>
     </div>
@@ -61,12 +67,36 @@ import { info } from '../../lib/info'
     font-size: 1.05rem;
     color: var(--text-secondary);
     line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .about-highlight {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.2rem;
+    border-radius: var(--radius-md);
+    background: var(--accent-yellow-glow);
+    border: 1px solid rgba(234, 179, 8, 0.15);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
     margin-bottom: 2.5rem;
+  }
+
+  .about-highlight svg {
+    color: var(--accent-yellow);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .about-highlight strong {
+    color: var(--text-primary);
   }
 
   .about-stats {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     flex-wrap: wrap;
   }
 
@@ -79,7 +109,7 @@ import { info } from '../../lib/info'
   .stat-value {
     font-size: 2rem;
     font-weight: 800;
-    background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+    background: linear-gradient(135deg, var(--accent-yellow), var(--accent-amber));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -110,18 +140,18 @@ import { info } from '../../lib/info'
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+    background: linear-gradient(135deg, var(--accent-yellow), var(--accent-amber));
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
-    box-shadow: 0 0 40px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 0 40px var(--accent-yellow-glow);
   }
 
   .orbit-label {
     font-size: 0.75rem;
     font-weight: 700;
-    color: white;
+    color: #0f172a;
     text-align: center;
   }
 
@@ -144,15 +174,17 @@ import { info } from '../../lib/info'
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
     white-space: nowrap;
-    animation: floatItem 3s ease-in-out infinite;
+    animation: float 3s ease-in-out infinite;
     z-index: 1;
     transform: translate(-50%, -50%);
     box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
   }
 
-  @keyframes floatItem {
-    0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-    50% { transform: translate(-50%, -50%) translateY(-5px); }
+  .orbit-item:hover {
+    border-color: var(--accent-yellow);
+    color: var(--accent-yellow);
+    background: var(--accent-yellow-glow);
   }
 
   @media (max-width: 900px) {

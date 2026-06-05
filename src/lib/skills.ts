@@ -3,7 +3,7 @@ import type { Skill } from '../types'
 export const skills: Skill[] = [
   { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg', category: 'language', mastery: 'core' },
   { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg', category: 'language', mastery: 'core' },
-  { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg', category: 'language', mastery: 'learning' },
+  { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg', category: 'language', mastery: 'core' },
   { name: 'Rust', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg', category: 'language', mastery: 'learning' },
   { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg', category: 'frontend', mastery: 'core' },
   { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg', category: 'frontend', mastery: 'strong' },
@@ -23,4 +23,12 @@ export const skills: Skill[] = [
   { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg', category: 'tool', mastery: 'core' },
   { name: 'Linux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg', category: 'tool', mastery: 'strong' },
   { name: 'Tauri', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tauri/tauri-original.svg', category: 'desktop', mastery: 'strong' },
+  { name: 'Vercel', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg', category: 'tool', mastery: 'strong' },
+  { name: 'Render', icon: 'https://cdn.simpleicons.org/render', category: 'tool', mastery: 'strong' },
+  { name: 'Aiven Cloud', icon: 'https://cdn.simpleicons.org/aiven', category: 'tool', mastery: 'strong' },
+  { name: 'Gemini API', icon: 'https://cdn.simpleicons.org/googlegemini', category: 'tool', mastery: 'strong' },
+  { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg', category: 'language', mastery: 'core' },
+  { name: 'C++', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg', category: 'language', mastery: 'learning' },
+  { name: 'C#', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg', category: 'language', mastery: 'learning' },
+  { name: 'Opencode', icon: '/icons/opencode.svg', category: 'tool', mastery: 'strong' },
 ]

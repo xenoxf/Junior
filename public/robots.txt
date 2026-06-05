@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://xenooxf.vercel.app/sitemap-index.xml

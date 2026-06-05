@@ -32,14 +32,14 @@
 }
 
 .filterBtn:hover {
-  border-color: var(--border-hover);
-  color: var(--text-primary);
+  border-color: var(--accent-yellow);
+  color: var(--accent-yellow);
 }
 
 .filterBtnActive {
-  background: rgba(37, 99, 235, 0.06);
-  border-color: rgba(37, 99, 235, 0.3);
-  color: var(--accent);
+  background: var(--accent-yellow-glow);
+  border-color: var(--accent-yellow);
+  color: var(--accent-yellow);
 }
 
 .grid {
@@ -65,7 +65,7 @@
 
 .card:hover {
   box-shadow: var(--shadow-md);
-  border-color: var(--border-hover);
+  border-color: var(--accent-yellow);
   transform: translateY(-4px);
 }
 
@@ -91,7 +91,7 @@
 
 .levelCore {
   background: rgba(37, 99, 235, 0.06);
-  color: var(--accent);
+  color: var(--accent-blue);
   border: 1px solid rgba(37, 99, 235, 0.15);
 }
 
@@ -102,12 +102,12 @@
 }
 
 .levelLearning {
-  background: rgba(217, 119, 6, 0.06);
-  color: var(--accent-amber);
-  border: 1px solid rgba(217, 119, 6, 0.15);
+  background: rgba(234, 179, 8, 0.06);
+  color: var(--accent-yellow);
+  border: 1px solid rgba(234, 179, 8, 0.15);
 }
 
 .highlight {
-  color: var(--accent);
+  color: var(--accent-blue);
   font-weight: 600;
 }

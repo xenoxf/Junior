@@ -1,26 +1,48 @@
 ---
 import { projects } from '../../lib/projects'
+import { info } from '../../lib/info'
+
+const categories = [
+  { id: 'all', label: 'Todos' },
+  { id: 'fullstack', label: 'Full Stack' },
+  { id: 'backend', label: 'Backend' },
+  { id: 'frontend', label: 'Frontend' },
+  { id: 'desktop', label: 'Desktop' },
+  { id: 'cli', label: 'CLI' },
+]
 ---
 
 <section class="section" id="projects">
   <div class="projects-header">
     <div class="section-label">Proyectos</div>
-    <h2 class="section-title">Lo que he construido</h2>
+    <h2 class="section-title">Lo que <span class="heading-highlight">he construido</span></h2>
     <p class="section-subtitle">
-      <span class="accent">Activos</span> los mantengo y agrego features.
+      <span class="accent-yellow">Activos</span> los mantengo y agrego features.
       <span class="muted">Archivados</span> están terminados.
+      <span class="muted">— {info.name}</span>
     </p>
   </div>
 
-  <div class="projects-grid">
+  <div class="projects-filters" id="project-filters">
+    {categories.map((cat) => (
+      <button
+        class={`filter-pill ${cat.id === 'all' ? 'filter-pill-active' : ''}`}
+        data-filter={cat.id}
+      >
+        {cat.label}
+      </button>
+    ))}
+  </div>
+
+  <div class="projects-grid" id="projects-grid">
     {projects.map((p) => {
       const isActive = p.maintenance === 'active'
       const isArchived = p.maintenance === 'archived'
       return (
-        <article class={`project-card ${!p.isMainTech ? 'learning' : ''}`}>
+        <article class={`project-card ${!p.isMainTech ? 'learning' : ''}`} data-category={p.category}>
           <div class="card-accent" />
           {p.image && (
-            <a href={p.demoUrl || p.backendUrl || '#'} target="_blank" rel="noopener" class="card-image-wrap">
+            <a href={`/projects/${p.id}`} class="card-image-wrap">
               <img src={p.image} alt={p.name} class="card-image" loading="lazy" />
             </a>
           )}
@@ -65,6 +87,10 @@ import { projects } from '../../lib/projects'
           </div>
 
           <div class="card-footer">
+            <a href={`/projects/${p.id}`} class="foot-link details">
+              Ver detalles
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
             {p.demoUrl && (
               <a href={p.demoUrl} target="_blank" rel="noopener" class="foot-link demo">
                 {p.category === 'fullstack' ? 'Frontend' : 'Demo'}
@@ -89,10 +115,68 @@ import { projects } from '../../lib/projects'
   </div>
 </section>
 
+<script>
+  const container = document.getElementById('project-filters')
+  const grid = document.getElementById('projects-grid')
+
+  if (container && grid) {
+    const buttons = container.querySelectorAll('.filter-pill')
+    const cards = grid.querySelectorAll('.project-card')
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        buttons.forEach((b) => b.classList.remove('filter-pill-active'))
+        btn.classList.add('filter-pill-active')
+        const filter = btn.dataset.filter
+
+        cards.forEach((card) => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = ''
+            card.style.animation = 'fadeIn 0.3s ease-out'
+          } else {
+            card.style.display = 'none'
+          }
+        })
+      })
+    })
+  }
+</script>
+
 <style>
-  .projects-header { margin-bottom: 3rem; }
-  .accent { color: var(--accent); font-weight: 600; }
+  .projects-header { margin-bottom: 2rem; }
+
+  .accent-yellow { color: var(--accent-yellow); font-weight: 600; }
   .muted { color: var(--text-tertiary); font-weight: 500; }
+
+  .projects-filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+  }
+
+  .filter-pill:hover {
+    border-color: var(--accent-yellow);
+    color: var(--accent-yellow);
+  }
+
+  .filter-pill-active {
+    background: var(--accent-yellow-glow);
+    border-color: var(--accent-yellow);
+    color: var(--accent-yellow);
+  }
 
   .projects-grid {
     display: grid;
@@ -114,6 +198,9 @@ import { projects } from '../../lib/projects'
 
   .card-body {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
   .card-image-wrap {
@@ -139,8 +226,8 @@ import { projects } from '../../lib/projects'
   }
 
   .project-card:hover {
-    border-color: var(--border-hover);
-    box-shadow: var(--shadow-md);
+    border-color: var(--accent-yellow);
+    box-shadow: 0 0 0 1px rgba(234, 179, 8, 0.08), var(--shadow-md);
     transform: translateY(-4px);
   }
 
@@ -148,7 +235,7 @@ import { projects } from '../../lib/projects'
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-cyan));
+    background: linear-gradient(90deg, var(--accent-yellow), var(--accent-amber));
     opacity: 0;
     transition: opacity var(--transition-normal);
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
@@ -188,7 +275,7 @@ import { projects } from '../../lib/projects'
 
   .badge-stable {
     background: rgba(37, 99, 235, 0.08);
-    color: var(--accent);
+    color: var(--accent-blue);
     border: 1px solid rgba(37, 99, 235, 0.15);
   }
 
@@ -288,7 +375,7 @@ import { projects } from '../../lib/projects'
   .sub-name {
     font-size: 0.82rem;
     font-weight: 600;
-    color: var(--accent);
+    color: var(--accent-blue);
   }
 
   .sub-tech {
@@ -304,7 +391,7 @@ import { projects } from '../../lib/projects'
 
   .sub-link:hover svg {
     transform: translate(2px, -2px);
-    color: var(--accent);
+    color: var(--accent-blue);
   }
 
   .card-tech {
@@ -320,7 +407,7 @@ import { projects } from '../../lib/projects'
     border-radius: 100px;
     background: rgba(37, 99, 235, 0.06);
     border: 1px solid rgba(37, 99, 235, 0.1);
-    color: var(--accent);
+    color: var(--accent-blue);
     font-weight: 500;
   }
 
@@ -336,6 +423,7 @@ import { projects } from '../../lib/projects'
     flex-wrap: wrap;
     padding-top: 0.8rem;
     border-top: 1px solid var(--border-color);
+    margin-top: auto;
   }
 
   .foot-link {
@@ -350,11 +438,22 @@ import { projects } from '../../lib/projects'
     text-decoration: none;
   }
 
+  .foot-link.details {
+    background: rgba(234, 179, 8, 0.08);
+    color: var(--accent-yellow-dark);
+    border: 1px solid rgba(234, 179, 8, 0.15);
+  }
+  .foot-link.details:hover {
+    background: var(--accent-yellow-glow);
+    border-color: var(--accent-yellow);
+    transform: translateY(-1px);
+  }
+
   .foot-link.demo {
-    background: var(--accent);
+    background: var(--accent-blue);
     color: white;
   }
-  .foot-link.demo:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .foot-link.demo:hover { background: var(--accent-blue-dark); transform: translateY(-1px); }
 
   .foot-link.api {
     background: var(--bg-tertiary);
@@ -366,7 +465,7 @@ import { projects } from '../../lib/projects'
     color: var(--text-secondary);
     border: 1px solid var(--border-color);
   }
-  .foot-link.gh:hover { border-color: var(--text-primary); color: var(--text-primary); }
+  .foot-link.gh:hover { border-color: var(--accent-yellow); color: var(--accent-yellow); }
 
   .project-card.learning .card-accent {
     background: linear-gradient(90deg, var(--accent-purple), var(--accent-amber));

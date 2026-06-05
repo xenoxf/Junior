@@ -1,8 +1,9 @@
 ---
 import { info } from '../../lib/info'
+import DarkModeToggle from '../ui/DarkModeToggle'
 ---
 
-<nav class="navbar">
+<nav class="navbar" id="navbar">
   <div class="navbar-inner">
     <a href="#hero" class="navbar-logo">
       <span class="logo-bracket">&#123;</span>
@@ -10,16 +11,66 @@ import { info } from '../../lib/info'
       <span class="logo-bracket">&#125;</span>
     </a>
 
-    <div class="navbar-links">
-      <a href="#about" class="nav-link">Sobre mí</a>
-      <a href="#skills" class="nav-link">Stack</a>
-      <a href="#projects" class="nav-link">Proyectos</a>
-      <a href="#services" class="nav-link">Servicios</a>
+    <div class="navbar-center" id="nav-links">
+      <div class="navbar-links">
+        <a href="#about" class="nav-link">Sobre mí</a>
+        <a href="#skills" class="nav-link">Stack</a>
+        <a href="#projects" class="nav-link">Proyectos</a>
+        <a href="#services" class="nav-link">Servicios</a>
+        <a href="#contact" class="nav-link">Contacto</a>
+      </div>
+      <div class="nav-actions-mobile">
+        <DarkModeToggle client:load />
+        <a href="#contact" class="navbar-cta">Contratar</a>
+      </div>
     </div>
 
-    <a href="#contact" class="navbar-cta">Contacto</a>
+    <div class="nav-actions">
+      <DarkModeToggle client:load />
+      <a href="#contact" class="navbar-cta">Contratar</a>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Menú">
+        <span class="menu-line" />
+        <span class="menu-line" />
+        <span class="menu-line" />
+      </button>
+    </div>
   </div>
 </nav>
+
+<script>
+  const toggle = document.getElementById('menu-toggle')
+  const links = document.getElementById('nav-links')
+  const navbar = document.getElementById('navbar')
+
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      const isOpen = links.classList.toggle('open')
+      toggle.classList.toggle('open', isOpen)
+      document.body.style.overflow = isOpen ? 'hidden' : ''
+    })
+
+    links.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        links.classList.remove('open')
+        toggle.classList.remove('open')
+        document.body.style.overflow = ''
+      })
+    })
+  }
+
+  if (navbar) {
+    let lastScroll = 0
+    window.addEventListener('scroll', () => {
+      const current = window.scrollY
+      if (current > 80) {
+        navbar.classList.add('scrolled')
+      } else {
+        navbar.classList.remove('scrolled')
+      }
+      lastScroll = current
+    }, { passive: true })
+  }
+</script>
 
 <style>
   .navbar {
@@ -28,22 +79,29 @@ import { info } from '../../lib/info'
     left: 0;
     right: 0;
     z-index: 100;
-    padding: 0.8rem 2rem;
+    padding: 0.6rem 2rem;
+    transition: all var(--transition-normal);
+  }
+
+  .navbar.scrolled .navbar-inner {
+    background: var(--bg-nav);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-color: var(--border-color);
+    box-shadow: var(--shadow-md);
   }
 
   .navbar-inner {
-    max-width: 1200px;
+    max-width: var(--max-width);
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.6rem 1.5rem;
+    padding: 0.5rem 1.2rem 0.5rem 1.5rem;
     border-radius: 100px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all var(--transition-normal);
   }
 
   .navbar-logo {
@@ -53,15 +111,21 @@ import { info } from '../../lib/info'
     text-decoration: none;
     font-weight: 700;
     font-size: 1.1rem;
+    flex-shrink: 0;
   }
 
   .logo-bracket {
-    color: var(--accent);
+    color: var(--accent-yellow);
     font-weight: 400;
-    opacity: 0.5;
   }
 
   .logo-text { color: var(--text-primary); }
+
+  .navbar-center {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
 
   .navbar-links {
     display: flex;
@@ -75,29 +139,137 @@ import { info } from '../../lib/info'
     text-decoration: none;
     transition: color var(--transition-fast);
     font-weight: 500;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: var(--accent-yellow);
+    transition: width var(--transition-fast);
+    border-radius: 2px;
   }
 
   .nav-link:hover { color: var(--text-primary); }
+  .nav-link:hover::after { width: 100%; }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  .nav-actions-mobile {
+    display: none;
+    align-items: center;
+    gap: 0.6rem;
+  }
 
   .navbar-cta {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
-    padding: 0.5rem 1.2rem;
+    padding: 0.45rem 1.1rem;
     border-radius: 100px;
-    background: var(--text-primary);
-    color: white;
+    background: linear-gradient(135deg, var(--accent-yellow), var(--accent-amber));
+    color: #0f172a;
     text-decoration: none;
     transition: all var(--transition-fast);
+    white-space: nowrap;
   }
 
   .navbar-cta:hover {
     opacity: 0.9;
     transform: translateY(-1px);
+    box-shadow: 0 4px 16px var(--accent-yellow-glow);
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menu-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: all var(--transition-normal);
+    transform-origin: center;
+  }
+
+  .menu-toggle.open .menu-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .menu-toggle.open .menu-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.open .menu-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 
   @media (max-width: 768px) {
-    .navbar-links { display: none; }
     .navbar { padding: 0.6rem 1rem; }
-    .navbar-inner { padding: 0.5rem 1rem; }
+    .navbar-inner { padding: 0.5rem 0.8rem 0.5rem 1.2rem; }
+
+    .menu-toggle { display: flex; }
+
+    .navbar-center {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--bg-primary);
+      flex-direction: column;
+      justify-content: center;
+      gap: 3rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-normal);
+      z-index: -1;
+    }
+
+    .navbar-center.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .navbar-links {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .nav-actions { gap: 0.4rem; }
+
+    .nav-actions-mobile {
+      display: flex;
+    }
+
+    .navbar-cta {
+      font-size: 0.9rem;
+      padding: 0.6rem 1.4rem;
+    }
   }
 </style>

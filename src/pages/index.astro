@@ -8,15 +8,35 @@ import Projects from "../components/sections/Projects.astro";
 import Services from "../components/sections/Services.astro";
 import Contact from "../components/sections/Contact.astro";
 import Footer from "../components/sections/Footer.astro";
+import ScrollProgress from "../components/ui/ScrollProgress.astro";
+import BackToTop from "../components/ui/BackToTop.astro";
 ---
 
 <Layout>
+  <ScrollProgress />
   <Navbar />
   <Hero />
   <About />
-  <Skills client:load />
   <Projects />
+  <Skills client:load />
   <Services />
   <Contact />
   <Footer />
+  <BackToTop />
 </Layout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    )
+    document.querySelectorAll('.animate-in').forEach((el) => observer.observe(el))
+  })
+</script>

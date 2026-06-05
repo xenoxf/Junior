@@ -5,16 +5,18 @@ import { services } from '../../lib/services'
 <section class="section" id="services">
   <div class="services-header">
     <div class="section-label">Servicios</div>
-    <h2 class="section-title">Lo que puedo construir</h2>
+    <h2 class="section-title">Lo que <span class="heading-yellow">puedo construir</span> para ti</h2>
     <p class="section-subtitle">
-      Desde APIs escalables hasta aplicaciones de escritorio.
+      Desde APIs escalables hasta aplicaciones de escritorio. Cada línea de código está pensada para resolver problemas reales.
     </p>
   </div>
 
   <div class="services-grid">
     {services.map((s) => (
       <div class="service-card">
-        <div class="service-icon">{s.icon}</div>
+        <div class="service-icon-wrap">
+          <span class="service-icon">{s.icon}</span>
+        </div>
         <h3 class="service-title">{s.title}</h3>
         <p class="service-desc">{s.description}</p>
         <ul class="service-features">
@@ -43,6 +45,8 @@ import { services } from '../../lib/services'
     border-radius: var(--radius-lg);
     transition: all var(--transition-normal);
     box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
   }
 
   .service-card:hover {
@@ -51,9 +55,19 @@ import { services } from '../../lib/services'
     transform: translateY(-3px);
   }
 
+  .service-icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background: var(--accent-yellow-glow);
+    margin-bottom: 1.2rem;
+  }
+
   .service-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
   }
 
   .service-title {
@@ -68,6 +82,7 @@ import { services } from '../../lib/services'
     color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: 1.2rem;
+    flex: 1;
   }
 
   .service-features {
@@ -92,7 +107,7 @@ import { services } from '../../lib/services'
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: var(--accent);
-    opacity: 0.4;
+    background: var(--accent-yellow);
+    opacity: 0.5;
   }
 </style>
