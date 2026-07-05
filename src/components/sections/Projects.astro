@@ -42,7 +42,7 @@ const categories = [
         <article class={`project-card ${!p.isMainTech ? 'learning' : ''}`} data-category={p.category}>
           <div class="card-accent" />
           {p.image && (
-            <a href={`/projects/${p.id}`} class="card-image-wrap">
+          <a href={`${p.demoUrl ?? '/projects/'+p.id}`} class="card-image-wrap">
               <img src={p.image} alt={p.name} class="card-image" loading="lazy" />
             </a>
           )}
