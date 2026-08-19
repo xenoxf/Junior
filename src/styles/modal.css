@@ -20,17 +20,42 @@
 }
 
 .project-dialog {
-  border: 1px solid var(--fg);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--fg);
   background: var(--bg);
   color: var(--fg);
   padding: 0;
-  width: min(640px, 92vw);
-  max-height: 88vh;
+  width: min(700px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
   overflow: auto;
+  overscroll-behavior: contain;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+  animation: dialog-in 180ms ease-out;
+}
+
+.project-dialog:not([open]) {
+  display: none;
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 10px)) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .project-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(16, 18, 20, 0.68);
+  backdrop-filter: blur(3px);
 }
 
 .dialog-head {
@@ -38,12 +63,50 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.5rem 1.5rem 1rem;
+  padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--line);
 }
 
+.dialog-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.dialog-image {
+  width: 76px;
+  height: 54px;
+  flex: none;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+.dialog-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.7rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+
+.dialog-status::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 0.35rem 1px 0;
+  border-radius: 50%;
+  background: currentColor;
+}
+
 .dialog-title {
-  font-size: 1.4rem;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
   font-weight: 800;
   letter-spacing: -0.02em;
 }
@@ -56,13 +119,13 @@
 
 .dialog-close {
   background: transparent;
-  border: 1px solid var(--fg);
+  border: 1px solid var(--line);
   color: var(--fg);
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   flex: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.5rem;
   line-height: 1;
 }
 
@@ -71,8 +134,21 @@
   color: var(--bg);
 }
 
+.dialog-close:focus-visible,
+.dialog-links a:focus-visible,
+.card-details:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+
 .dialog-body {
-  padding: 1.25rem 1.5rem 1.75rem;
+  padding: 1.35rem 1.5rem 1.75rem;
+}
+
+.dialog-sub {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.85rem;
 }
 
 .dialog-lead {
@@ -115,9 +191,21 @@
 
 .dialog-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.25rem;
   font-weight: 600;
   margin-top: 0.25rem;
+}
+
+.dialog-links a {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--line);
+}
+
+.dialog-links .dialog-link-primary {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
 }
 
 .dialog-links a {
@@ -125,5 +213,37 @@
 }
 
 .dialog-links a:hover {
-  border-bottom-color: var(--fg);
+  border-color: var(--fg);
+}
+
+.dialog-links .dialog-link-primary:hover {
+  opacity: 0.82;
+}
+
+@media (max-width: 520px) {
+  .dialog-head,
+  .dialog-body {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .dialog-image {
+    width: 58px;
+    height: 44px;
+  }
+
+  .dialog-heading {
+    gap: 0.7rem;
+  }
+
+  .dialog-links a {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-dialog {
+    animation: none;
+  }
 }

@@ -43,15 +43,25 @@ const num = String(index).padStart(2, '0')
     </div>
   </div>
 
-  <dialog class="project-dialog" aria-label={`Detalles de ${project.name}`}>
+  <dialog class="project-dialog" aria-labelledby={`dialog-title-${project.id}`}>
     <div class="dialog-head">
-      <div>
-        <h3 class="dialog-title">{project.name}</h3>
-        <p class="dialog-sub">{project.description}</p>
+      <div class="dialog-heading">
+        {project.image && <img class="dialog-image" src={project.image} alt="" />}
+        <div>
+          <div class="dialog-eyebrow">
+            <span class="dialog-status">{project.status === 'production' ? 'En producción' : 'En desarrollo'}</span>
+            <span>{project.category}</span>
+            <span>{project.year}</span>
+          </div>
+          <h3 class="dialog-title" id={`dialog-title-${project.id}`}>{project.name}</h3>
+        </div>
       </div>
-      <button type="button" class="dialog-close" data-close aria-label="Cerrar">✕</button>
+      <button type="button" class="dialog-close" data-close aria-label="Cerrar detalles">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     <div class="dialog-body">
+      <p class="dialog-sub">{project.description}</p>
       <p class="dialog-lead">{project.longDescription}</p>
 
       {
@@ -80,8 +90,8 @@ const num = String(index).padStart(2, '0')
       </div>
 
       <div class="dialog-links">
-        {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener">Código fuente</a>}
-        {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener">Demo en vivo</a>}
+        {project.githubUrl && <a class="dialog-link-primary" href={project.githubUrl} target="_blank" rel="noopener">Código fuente <span aria-hidden="true">↗</span></a>}
+        {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener">Demo en vivo <span aria-hidden="true">↗</span></a>}
       </div>
     </div>
   </dialog>
