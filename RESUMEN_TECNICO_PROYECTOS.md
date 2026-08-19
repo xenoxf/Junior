@@ -40,13 +40,6 @@
 - **Tecnologías / Librerías:** Next.js 16, React 19, Tailwind CSS 4, TypeScript
 - **Enlace:** github.com/xenoxf/kluk-dc · kluk-dc.vercel.app
 
-## Back-OS
-- **Año / Estado:** 2025 · Deprecado
-- **Propósito:** Proveer una API REST con autenticación y persistencia para aplicaciones web.
-- **Arquitectura:** API REST con Express 5 y capa de datos con Prisma en TypeScript.
-- **Tecnologías / Librerías:** Express 5, Prisma, TypeScript
-- **Enlace:** github.com/xenoxf/back-OS
-
 ## Pomodoro React
 - **Año / Estado:** 2025 · En producción
 - **Propósito:** Aplicación de productividad para gestionar sesiones de trabajo con la técnica Pomodoro.
