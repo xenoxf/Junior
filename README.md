@@ -1,6 +1,6 @@
 # Jesus Adrian Camacho Casierra - Portafolio
 
-**Jesus Adrian Camacho Casierra** (también conocido como **Junior Adrian**, **Adrian Camacho** o **Adrian Casierra**) es un desarrollador full stack colombiano de 15 años de Cali, Colombia.
+**Jesus Adrian Camacho Casierra** es un desarrollador full stack colombiano de 16 años de Cali, Colombia.
 
 ## Stack
 

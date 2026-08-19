@@ -1,0 +1,45 @@
+---
+import { skills } from '../lib/skills'
+import '../styles/skills.css'
+
+const labels: Record<string, string> = {
+  language: 'Lenguajes',
+  frontend: 'Frontend',
+  backend: 'Backend',
+  database: 'Bases de datos',
+  desktop: 'Escritorio',
+  tool: 'Herramientas',
+}
+
+const order = ['language', 'frontend', 'backend', 'database', 'desktop', 'tool']
+
+const groups = order
+  .map((cat) => ({ cat, items: skills.filter((s) => s.category === cat) }))
+  .filter((g) => g.items.length > 0)
+---
+
+<section class="section" id="habilidades">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-kicker">03 / Habilidades</span>
+      <h2 class="section-title">Habilidades técnicas</h2>
+    </div>
+
+    {
+      groups.map((group) => (
+        <div class="skill-group reveal">
+          <h3>{labels[group.cat]}</h3>
+          <div class="skill-list">
+            {group.items.map((s) => (
+              <span class="skill">
+                <img src={s.icon} alt={s.name} loading="lazy" />
+                {s.name}
+                <span class="skill-level">{s.mastery}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

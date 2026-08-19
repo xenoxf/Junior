@@ -1,0 +1,24 @@
+---
+import { info } from '../lib/info'
+import '../styles/footer.css'
+
+const year = new Date().getFullYear()
+---
+
+<footer class="footer" id="contacto">
+  <div class="container footer-inner">
+    <div>
+      <strong>{info.name}</strong> — {info.title}
+      <br />
+      {info.location} · <a href={`mailto:${info.email}`}>{info.email}</a>
+    </div>
+    <div>
+      <a href={info.githubUrl} target="_blank" rel="noopener">GitHub</a>
+      ·
+      <a href={info.whatsappUrl} target="_blank" rel="noopener">WhatsApp</a>
+      ·
+      <a href={info.cvUrl} download>CV</a>
+    </div>
+    <div>© {year} {info.fullName}</div>
+  </div>
+</footer>

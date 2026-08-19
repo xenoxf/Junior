@@ -1,0 +1,88 @@
+---
+import type { Project } from '../types'
+import '../styles/project-card.css'
+import '../styles/modal.css'
+
+interface Props {
+  project: Project
+  index: number
+}
+
+const { project, index } = Astro.props
+const num = String(index).padStart(2, '0')
+---
+
+<article class="card" data-category={project.category}>
+  <span class="card-index">{num}</span>
+  {
+    project.image && (
+      <div class="card-media">
+        <img src={project.image} alt={`Captura de ${project.name}`} loading="lazy" />
+      </div>
+    )
+  }
+  <div class="card-body">
+    <h3 class="card-name">{project.name}</h3>
+    <p class="card-desc">{project.description}</p>
+
+    <div class="card-meta">
+      <span class="dot"></span>
+      <span>{project.status === 'production' ? 'En producción' : 'En desarrollo'}</span>
+      <span>·</span>
+      <span>{project.year}</span>
+    </div>
+
+    <div class="card-tags">
+      {project.tech.map((t) => <span class="tag">{t}</span>)}
+    </div>
+
+    <div class="card-links">
+      {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener">Código</a>}
+      {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener">Demo</a>}
+      <button type="button" class="card-details" data-details>Ver detalles</button>
+    </div>
+  </div>
+
+  <dialog class="project-dialog" aria-label={`Detalles de ${project.name}`}>
+    <div class="dialog-head">
+      <div>
+        <h3 class="dialog-title">{project.name}</h3>
+        <p class="dialog-sub">{project.description}</p>
+      </div>
+      <button type="button" class="dialog-close" data-close aria-label="Cerrar">✕</button>
+    </div>
+    <div class="dialog-body">
+      <p class="dialog-lead">{project.longDescription}</p>
+
+      {
+        project.purpose && (
+          <div class="dialog-block">
+            <h4>Propósito</h4>
+            <p>{project.purpose}</p>
+          </div>
+        )
+      }
+
+      {
+        project.architecture && (
+          <div class="dialog-block">
+            <h4>Arquitectura</h4>
+            <p>{project.architecture}</p>
+          </div>
+        )
+      }
+
+      <div class="dialog-block">
+        <h4>Tecnologías</h4>
+        <div class="dialog-tags">
+          {project.tech.map((t) => <span class="tag">{t}</span>)}
+        </div>
+      </div>
+
+      <div class="dialog-links">
+        {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener">Código fuente</a>}
+        {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener">Demo en vivo</a>}
+      </div>
+    </div>
+  </dialog>
+</article>

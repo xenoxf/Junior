@@ -1,0 +1,20 @@
+---
+import { info } from '../lib/info'
+import '../styles/hero.css'
+---
+
+<section class="hero" id="inicio">
+  <div class="container">
+    <div class="hero-monogram">JC</div>
+    <span class="badge-avail"><span class="dot"></span> Disponible para trabajar</span>
+    <h1 class="hero-name">{info.name}</h1>
+    <p class="hero-title">{info.title} — {info.location}</p>
+    <p class="hero-bio">{info.bio}</p>
+    <div class="hero-actions">
+      <a class="btn btn-solid" href={info.cvUrl} download>Descargar CV</a>
+      <a class="btn btn-ghost" href={info.githubUrl} target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn-ghost" href={info.whatsappUrl} target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn btn-ghost" href={`mailto:${info.email}`}>Email</a>
+    </div>
+  </div>
+</section>

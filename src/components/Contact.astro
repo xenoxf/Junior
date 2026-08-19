@@ -1,0 +1,22 @@
+---
+import { info } from '../lib/info'
+import '../styles/contact.css'
+---
+
+<section class="section" id="contacto">
+  <div class="container">
+    <div class="cta reveal">
+      <h2>¿Buscas un desarrollador?</h2>
+      <p>
+        Estoy abierto a oportunidades de trabajo, prácticas y proyectos freelance.
+        Respondo rápido por cualquier canal.
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn-solid" href={`mailto:${info.email}`}>Email</a>
+        <a class="btn btn-ghost" href={info.whatsappUrl} target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-ghost" href={info.githubUrl} target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-ghost" href={info.cvUrl} download>Descargar CV</a>
+      </div>
+    </div>
+  </div>
+</section>

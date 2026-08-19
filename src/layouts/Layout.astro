@@ -1,110 +1,58 @@
 ---
 import { info } from '../lib/info'
-import '../styles/global.css'
+import '../styles/base.css'
 
 const title = `${info.name} · ${info.title}`
-const description = `${info.shortBio}`
-const image = '/portfolio-full.png'
+const description = info.shortBio
 const url = 'https://xenooxf.vercel.app'
-const domain = 'xenooxf.vercel.app'
-const allKeywords = [
-  ...info.aliases,
-  info.name,
-  info.title,
-  'desarrollador web',
-  'full stack',
-  'javascript',
-  'typescript',
-  'node.js',
-  'react',
-  'nestjs',
-  'portafolio',
-  'desarrollador colombiano',
-  'programador de 15 años',
-  'cali colombia',
-  'desarrollador junior',
-  'programador colombia',
-  'web developer colombia',
-].join(', ')
+const knowsAbout = [
+  'JavaScript', 'TypeScript', 'Java', 'React', 'Next.js', 'Astro',
+  'SolidJS', 'Tailwind CSS', 'Node.js', 'Express', 'TypeORM', 'Prisma',
+  'Git', 'Vercel', 'Vite', 'Framer Motion',
+]
 ---
 
 <!doctype html>
-<html lang="es" data-theme="light">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content={allKeywords} />
     <meta name="author" content={info.fullName} />
-    <meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-<meta name="google-site-verification" content="bUWA640cYC5xTz1CRqp5SlH2r6aH8-E_nhgSWgb3T9I" />
+    <meta name="theme-color" content="#ffffff" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={url} />
-    <meta property="og:title" content={`${info.name} · ${info.title} · ${info.location}`} />
+    <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${url}${image}`} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={url} />
     <meta property="og:locale" content="es_CO" />
-    <meta property="og:site_name" content={info.name} />
-
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${info.name} · ${info.title}`} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${url}${image}`} />
-
-    <link rel="canonical" href={url} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: info.fullName,
-      givenName: "Jesus Adrian",
-      familyName: "Camacho Casierra",
-      additionalName: info.aliases,
-      jobTitle: info.title,
-      description: info.shortBio,
-      url: url,
-      email: info.email,
-      image: `${url}${image}`,
-      gender: "Male",
-      nationality: { "@type": "Country", name: "Colombia" },
-      birthPlace: { "@type": "City", name: "Cali", address: { "@type": "PostalAddress", addressCountry: "CO" } },
-      address: { "@type": "PostalAddress", addressLocality: "Cali", addressCountry: "CO" },
-      sameAs: [info.githubUrl, info.whatsappUrl, `mailto:${info.email}`],
-      knowsAbout: ["JavaScript", "TypeScript", "React", "Node.js", "NestJS", "PostgreSQL", "Next.js", "Docker", "Astro", "Tauri", "Express", "Prisma"],
-      alumniOf: "SENA",
-    })} />
-
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: `${info.name} - Portafolio`,
-      url: url,
-      description: info.shortBio,
-      author: { "@type": "Person", name: info.fullName },
-    })} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: info.fullName,
+      alternateName: info.aliases,
+      jobTitle: info.title,
+      description: info.shortBio,
+      url,
+      email: info.email,
+      address: { '@type': 'PostalAddress', addressLocality: info.location, addressCountry: 'CO' },
+      sameAs: [info.githubUrl, info.whatsappUrl, `mailto:${info.email}`],
+      knowsAbout,
+    })} />
   </head>
   <body>
     <script is:inline>
-      (function() {
-        const saved = localStorage.getItem('theme')
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-        const theme = saved || (prefersDark ? 'dark' : 'light')
-        document.documentElement.setAttribute('data-theme', theme)
-      })()
+      document.documentElement.classList.add('js')
     </script>
     <slot />
   </body>

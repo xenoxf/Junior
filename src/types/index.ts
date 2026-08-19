@@ -27,6 +27,8 @@ export type Project = {
   category: 'fullstack' | 'backend' | 'frontend' | 'desktop' | 'cli'
   isMainTech: boolean
   year: number
+  purpose?: string
+  architecture?: string
   subProjects?: SubProject[]
 }
 

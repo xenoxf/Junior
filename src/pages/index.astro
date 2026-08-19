@@ -1,42 +1,96 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Navbar from "../components/sections/Navbar.astro";
-import Hero from "../components/sections/Hero.astro";
-import About from "../components/sections/About.astro";
-import Skills from "../components/sections/Skills";
-import Projects from "../components/sections/Projects.astro";
-import Services from "../components/sections/Services.astro";
-import Contact from "../components/sections/Contact.astro";
-import Footer from "../components/sections/Footer.astro";
-import ScrollProgress from "../components/ui/ScrollProgress.astro";
-import BackToTop from "../components/ui/BackToTop.astro";
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Hero from '../components/Hero.astro'
+import About from '../components/About.astro'
+import Projects from '../components/Projects.astro'
+import Skills from '../components/Skills.astro'
+import Contact from '../components/Contact.astro'
+import Footer from '../components/Footer.astro'
 ---
 
 <Layout>
-  <ScrollProgress />
-  <Navbar />
-  <Hero />
-  <About />
-  <Projects />
-  <Skills client:load />
-  <Services />
-  <Contact />
+  <Nav />
+  <main>
+    <Hero />
+    <About />
+    <Projects />
+    <Skills />
+    <Contact />
+  </main>
   <Footer />
-  <BackToTop />
 </Layout>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    const observer = new IntersectionObserver(
+<script>
+  // Reveal al hacer scroll
+  const revealEls = document.querySelectorAll('.reveal')
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible')
+            io.unobserve(entry.target)
           }
         })
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.12 }
     )
-    document.querySelectorAll('.animate-in').forEach((el) => observer.observe(el))
+    revealEls.forEach((el) => io.observe(el))
+  } else {
+    revealEls.forEach((el) => el.classList.add('visible'))
+  }
+
+  // Scrollspy: resalta el enlace del nav según la sección visible
+  const navLinks = Array.from(document.querySelectorAll('.nav-links a'))
+  const spy = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id
+          navLinks.forEach((a) =>
+            a.classList.toggle('active', a.getAttribute('href') === `#${id}`)
+          )
+        }
+      })
+    },
+    { rootMargin: '-45% 0px -50% 0px' }
+  )
+  document.querySelectorAll('section[id]').forEach((s) => spy.observe(s))
+
+  // Filtros de proyectos
+  const filterBtns = Array.from(document.querySelectorAll('.filter-btn'))
+  const cards = Array.from(document.querySelectorAll('.card'))
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach((b) => b.classList.remove('active'))
+      btn.classList.add('active')
+      const filter = btn.getAttribute('data-filter')
+      cards.forEach((card) => {
+        const match = filter === 'all' || card.getAttribute('data-category') === filter
+        card.style.display = match ? '' : 'none'
+      })
+    })
+  })
+
+  // Modal de detalle de proyecto (clic en la card o en "Ver detalles")
+  document.querySelectorAll('.card').forEach((card) => {
+    const dialog = card.querySelector('.project-dialog') as HTMLDialogElement | null
+    if (!dialog) return
+    card.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) return
+      if ((e.target as HTMLElement).closest('.project-dialog')) return
+      if (dialog.open) return
+      dialog.showModal()
+    })
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close()
+    })
+  })
+
+  document.querySelectorAll('[data-close]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      ;(btn.closest('dialog') as HTMLDialogElement | null)?.close()
+    })
   })
 </script>

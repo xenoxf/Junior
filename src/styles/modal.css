@@ -1,0 +1,129 @@
+/* Card clicable + diálogo de detalle del proyecto */
+.card {
+  cursor: pointer;
+}
+
+.card-details {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.card-details:hover {
+  border-bottom-color: var(--fg);
+}
+
+.project-dialog {
+  border: 1px solid var(--fg);
+  background: var(--bg);
+  color: var(--fg);
+  padding: 0;
+  width: min(640px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+}
+
+.project-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.dialog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.dialog-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.dialog-sub {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.dialog-close {
+  background: transparent;
+  border: 1px solid var(--fg);
+  color: var(--fg);
+  width: 34px;
+  height: 34px;
+  flex: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.dialog-close:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.dialog-body {
+  padding: 1.25rem 1.5rem 1.75rem;
+}
+
+.dialog-lead {
+  color: var(--fg);
+  font-size: 0.98rem;
+  margin-bottom: 1.1rem;
+}
+
+.dialog-block {
+  margin-bottom: 1.1rem;
+}
+
+.dialog-block h4 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.dialog-block p {
+  color: var(--fg);
+  font-size: 0.95rem;
+}
+
+.dialog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.dialog-tags .tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.22rem 0.55rem;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.dialog-links {
+  display: flex;
+  gap: 1.25rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+.dialog-links a {
+  border-bottom: 1px solid transparent;
+}
+
+.dialog-links a:hover {
+  border-bottom-color: var(--fg);
+}

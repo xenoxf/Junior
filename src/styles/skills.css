@@ -1,0 +1,52 @@
+.skill-group {
+  margin-bottom: 2rem;
+}
+
+.skill-group:last-child {
+  margin-bottom: 0;
+}
+
+.skill-group h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin-bottom: 0.9rem;
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.skill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  font-size: 0.9rem;
+}
+
+.skill img {
+  width: 18px;
+  height: 18px;
+}
+
+.skill:hover {
+  border-color: var(--fg);
+}
+
+.skill-level {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  border-left: 1px solid var(--line);
+  padding-left: 0.5rem;
+  margin-left: 0.1rem;
+}

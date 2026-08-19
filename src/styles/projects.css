@@ -1,0 +1,40 @@
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.25rem;
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  padding: 0.4rem 0.95rem;
+  border-radius: 0;
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+
+.filter-btn:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.filter-btn.active {
+  border-color: var(--fg);
+  color: var(--fg);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 760px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

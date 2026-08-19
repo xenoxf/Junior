@@ -1,0 +1,35 @@
+---
+import { projects } from '../lib/projects'
+import ProjectCard from './ProjectCard.astro'
+import '../styles/projects.css'
+
+const filters = [
+  { id: 'all', label: 'Todos' },
+  { id: 'frontend', label: 'Frontend' },
+  { id: 'backend', label: 'Backend' },
+  { id: 'fullstack', label: 'Fullstack' },
+]
+---
+
+<section class="section" id="proyectos">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-kicker">02 / Proyectos</span>
+      <h2 class="section-title">Proyectos</h2>
+    </div>
+
+    <div class="filters reveal" role="tablist" aria-label="Filtrar proyectos">
+      {
+        filters.map((f) => (
+          <button class={`filter-btn${f.id === 'all' ? ' active' : ''}`} data-filter={f.id}>
+            {f.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="projects-grid reveal">
+      {projects.map((project, i) => <ProjectCard project={project} index={i + 1} />)}
+    </div>
+  </div>
+</section>
