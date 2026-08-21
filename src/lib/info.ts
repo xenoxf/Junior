@@ -6,7 +6,7 @@ export const info: Info = {
   title: 'Full Stack Developer',
   tagline: 'Creando productos web con JavaScript y TypeScript.',
   bio: 'Desarrollador full stack especializado en JavaScript y TypeScript. Construyo aplicaciones web con React, Astro, Next.js y Backend con Node.js (Nest, Express, TypeORM, Prisma). Me gusta aprender haciendo porque cada proyecto es una oportunidad para dominar algo más.',
-  shortBio: 'Buenas soy Jesus tengo 16 años y soy un programador, especializado en JavaScript, TypeScript, React, Astro, Next.js y Node.js.',
+  shortBio: 'Buenas soy Jesus tengo 16 años y soy un programador fullstack, especializado en JavaScript / TypeScript, React, Astro, Next.js, Nest.js, Node.js y con las capacidades de aprender muchas más tecnologias',
   philosophy: 'Creo en el código limpio, la arquitectura pensada y el aprendizaje constante. Mi stack principal es JS/TS, con el que construyo productos reales. También exploro otros lenguajes como Java y Go porque salir de lo conocido es la mejor forma de crecer.',
   mainTech: 'JavaScript / TypeScript',
   learningMessage: 'La mayor parte de mi experiencia productiva está en JS/TS. Java y Go los exploro activamente en proyectos personales.',
