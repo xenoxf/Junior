@@ -61,7 +61,7 @@ export const projects: Project[] = [
     name: 'Sistek Pro',
     description: 'Sitio web corporativo',
     longDescription: 'Sitio web corporativo construido con Astro 6, React 19 y Tailwind CSS 4, con SEO completo. Publicado en sistekpro.vercel.app y backend propio (sistekpro-backend).',
-    image: '/images/systekpro.jpg',
+    image: '/images/systek.png',
     tags: ['frontend', 'corporativo', 'Astro', 'SEO'],
     tech: ['Astro 6', 'React 19', 'Tailwind CSS 4'],
     githubUrl: `${gh}/systekpro`,

@@ -2,7 +2,6 @@ export type Skill = {
   name: string
   icon: string
   category: 'language' | 'frontend' | 'backend' | 'database' | 'tool' | 'desktop'
-  mastery: 'core' | 'strong' | 'learning'
 }
 
 export type SubProject = {
