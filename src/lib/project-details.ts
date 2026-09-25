@@ -90,7 +90,7 @@ Vercel (learnyos.vercel.app)`,
 
   klerk: {
     context: [
-      'Klerk es el backend del sistema Kire / LearnYos: API educativa con IA que genera exámenes (quiz e ICFES), flashcards y notas desde un tema o archivo, con chat educativo en streaming, créditos diarios y comunidad. Documentado en README, ARCHITECTURE.md y GEMINI.md.',
+      'Klerk es el backend del sistema Kire / LearnYos: API educativa con IA que genera exámenes (quiz e ICFES), flashcards y notas desde un tema o archivo, con chat educativo en streaming, créditos diarios y comunidad. Documentado en README y ARCHITECTURE.md.',
       'Decisión clave: monolito modular NestJS en vez de microservicios, para que un solo desarrollador pueda mantener 11 dominios con un único deploy y una sola base PostgreSQL.',
     ],
     architectureDiagram: `┌──────────┐  HTTPS + x-api-key + JWT  ┌─────────────────────────────────┐
@@ -160,7 +160,7 @@ Códigos de 5 caracteres en Note/Exam/Card para compartir.`,
       env: ['DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME', 'JWT_SECRET, JWT_EXPIRATION, API_KEY', 'GEMINI_API_KEY, GEMINI_API_KEY_2', 'GOOGLE_CLIENT_ID/SECRET, MAIL_USER/MAIL_PASS, CORS_ORIGINS'],
     },
     methodology: [
-      'Docs como código: README + ARCHITECTURE.md + GEMINI.md se actualizan con cada módulo para que un reclutador o IA entienda el sistema sin leer todo el código.',
+      'Docs como código: README y ARCHITECTURE.md se actualizan con cada módulo para mantener la documentación al día sin leer todo el código.',
       'Seguridad por defecto: todo cerrado salvo lo explícitamente público; validación estricta que rechaza propiedades extra.',
       'Economía de IA: créditos + rate-limit + rotación de keys para no quemar cuota en un abuso.',
     ],
@@ -239,11 +239,11 @@ Ver database.drawio en el repo para el ERD exacto.`,
     },
     methodology: [
       'API-first con API.md como contrato: el frontend se programa contra tablas de endpoints y ejemplos, no contra prueba-error.',
-      'Docs PROMPT-AGENTE-FRONTEND y PROMPT-FIX-LOGIN-401 para resolver integración y 401 sin adivinar.',
+      'Guías internas de integración y troubleshooting para resolver errores de integración y 401 de forma sistemática.',
       'Orden de estudio recomendado en README (del main.ts → capas → flujos) para onboarding rápido de reclutadores/devs.',
     ],
     challenges: [
-      { title: '401 fantasma en login', solution: 'Guía PROMPT-FIX-LOGIN-401: revisar x-api-key vs JWT, CORS_ORIGIN, expiración 10h y rol.' },
+      { title: '401 fantasma en login', solution: 'Revisar x-api-key vs JWT, CORS_ORIGIN, expiración 10h y rol con guía interna de troubleshooting.' },
       { title: 'synchronize en prod', solution: 'Documentado como solo-dev; en prod migraciones y synchronize:false.' },
       { title: 'Seguimiento público sin filtrar datos', solution: 'Endpoint público mínimo por código, con solo x-api-key y sin exponer usuarios internos.' },
     ],
@@ -361,7 +361,7 @@ Response Go→Rust (stdout, una línea):
 
   xenner: {
     context: [
-      'Xenner es un bloc de notas desktop (Tauri 2 + SolidJS + TS + Rust) donde toda la UI se personaliza con skins en archivos TXT que el usuario edita. Regla de oro del repo (AGENTS.md): no alucinar, verificar en docs o con build real; una skin rota jamás cuelga la app.',
+      'Xenner es un bloc de notas desktop (Tauri 2 + SolidJS + TS + Rust) donde toda la UI se personaliza con skins en archivos TXT que el usuario edita. El diseño es tolerante a fallos: una skin rota jamás cuelga la app.',
       'El valor técnico: un SkinEngine tolerante a fallos + backend Rust mínimo + transparencia real de ventana para glassmorphism.',
     ],
     architectureDiagram: `skins/<nombre>/*.txt ──▶ Rust scan_skins/read_skin_file ──▶ SolidJS SkinEngine
@@ -387,13 +387,13 @@ default glassmorphism EMBEBIDA ◀── fallback si falta/falla/corrupto ──
     authSecurity: ['Sin auth: app local. Higiene anti-inyección en parser TXT.', 'Riesgo documentado: transparent:true + Nvidia en Linux puede fallar (issue Tauri #14924) con conmutador previsto.'],
     frontend: {
       routes: ['Desktop de notas (lista + editor + selector de skin)'],
-      notes: ['Componentes 100% var-driven; cambiar tema no toca código.', 'Documentado en AGENTS.md el flujo IA: revisar SKIN_SPEC → pnpm build / cargo check → commit en español.'],
+      notes: ['Componentes 100% var-driven; cambiar tema no toca código.', 'Flujo de desarrollo: revisar SKIN_SPEC → pnpm build / cargo check → commit en español.'],
     },
     deployment: {
       where: 'Desktop (Tauri bundle) + vite dev para UI',
       how: ['cd xenner && pnpm install && pnpm dev (:1420) para UI', 'cargo check -p xenner_lib en src-tauri para Rust', 'cargo build / tauri build solo cuando se pida (lento)'],
     },
-    methodology: ['Spec-first: SKIN_SPEC.md manda sobre el código; si discrepan se corrige código.', 'Verificación real obligatoria antes de afirmar nada.', 'Commits pequeños tras cada función (xenner: <tarea> — <detalle>).'],
+    methodology: ['Spec-first: SKIN_SPEC.md manda sobre el código; si discrepan se corrige código.', 'Verificación con build real antes de dar por terminado un cambio.', 'Commits pequeños tras cada función (xenner: <tarea> — <detalle>).'],
     challenges: [
       { title: 'Skins de usuario que rompen CSS', solution: 'Parser permisivo + default embebida + ignorar claves/valores peligrosos.' },
       { title: 'Blur real vs fake', solution: 'Transparencia Tauri + CSS; backdrop-filter solo blurea DOM, el SO blurea el fondo.' },
