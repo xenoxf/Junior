@@ -113,7 +113,7 @@ export const projects: Project[] = [
     name: 'Xenner',
     description: 'Bloc de notas desktop con skins TXT (Tauri + Solid + Rust)',
     longDescription: 'Creador de notas desktop con Tauri 2 + SolidJS + TypeScript + Rust, cuya interfaz es 100% modificable por skins basadas en archivos TXT que el usuario edita. SkinEngine parsea clave="valor" a variables CSS, con skin default glassmorphism embebida y fallback total: una skin rota jamás cuelga la app. Especificación en docs/SKIN_SPEC.md.',
-    image: '/images/xenner.jpg',
+    image: '/images/xenner.png',
     tags: ['desktop', 'Tauri', 'SolidJS', 'Rust', 'UX'],
     tech: ['Tauri 2', 'SolidJS', 'Rust', 'TypeScript', 'Vite 6'],
     githubUrl: `${gh}/xenner`,
