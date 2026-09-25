@@ -6,14 +6,18 @@
 
 JavaScript · TypeScript · React · Node.js · NestJS · PostgreSQL · Next.js · Docker · Astro · Tauri
 
-## Proyectos
+## Proyectos (cada uno con caso técnico en `/proyecto/[id]`)
 
-- Kire / Klerk / LearnYos - Plataforma educativa con IA
-- Sistek Pro - Sitio corporativo
-- KLUK API - E-commerce REST API
-- KLUK Dashboard - Dashboard administrativo
+- LearnYos (`/proyecto/learnyos`) - Plataforma educativa con IA (Next.js) + backend Klerk
+- Klerk (`/proyecto/klerk`) - API NestJS con Gemini, créditos y streaming
+- Sistek Pro (`/proyecto/sistekpro`) - Sistema full stack Astro + NestJS (con backend propio)
+- Diamante (`/proyecto/diamante`) - Institucional Astro + CMS Strapi
+- Killer (`/proyecto/killer`) - Desktop Tauri + Solid + Go + Rust
+- Xenner (`/proyecto/xenner`) - Notas desktop con skins TXT (Tauri + Solid + Rust)
+- KLUK Dashboard (`/proyecto/kluk-dc`) - Dashboard administrativo
+- KLUK Backend (`/proyecto/kluk`) - E-commerce REST API (NestJS)
 - Back-OS - Backend con Express/Prisma
-- Aximu v2 - E-commerce API (Spring Boot)
+- Pomodoro React - Temporizador Pomodoro
 - Juntxo Player - Reproductor MP3 en Java
 
 ## Contacto

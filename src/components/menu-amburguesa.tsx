@@ -11,15 +11,15 @@ export default function Menu() {
     return (
         <>
         <div className="burguer">
-            <button onClick={toggleMenu} className="burguer-boton">
+            <button onClick={toggleMenu} className="burguer-boton" aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={isOpen}>
             <MenuIcon color="black" size={34} /> 
         </button>
         { isOpen && (
             <div className="menu">
-                <a className="nav-link" href="#inicio" onClick={toggleMenu}>Inicio</a>
-                <a className="nav-link" href="#proyectos" onClick={toggleMenu}>Proyectos</a>
-                <a className="nav-link" href="#habilidades" onClick={toggleMenu}>Habilidades</a>
-                <a className="nav-link" href="#contacto" onClick={toggleMenu}>Contacto</a>
+                <a className="nav-link" href="/#inicio" onClick={toggleMenu}>Inicio</a>
+                <a className="nav-link" href="/#proyectos" onClick={toggleMenu}>Proyectos</a>
+                <a className="nav-link" href="/#habilidades" onClick={toggleMenu}>Habilidades</a>
+                <a className="nav-link" href="/#contacto" onClick={toggleMenu}>Contacto</a>
             </div>
         )}
         </div>

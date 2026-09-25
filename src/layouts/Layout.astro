@@ -2,9 +2,25 @@
 import { info } from '../lib/info'
 import '../styles/base.css'
 
-const title = `${info.name} · ${info.title}`
-const description = info.shortBio
+interface Props {
+  title?: string
+  description?: string
+  canonical?: string
+  ogType?: string
+  extraHead?: string
+}
+
+const {
+  title: customTitle,
+  description: customDesc,
+  canonical,
+  ogType = 'website',
+} = Astro.props as Props
+
+const title = customTitle ?? `${info.name} · ${info.title}`
+const description = customDesc ?? info.shortBio
 const url = 'https://xenooxf.vercel.app'
+const pageUrl = canonical ?? url
 const knowsAbout = [
   'JavaScript', 'TypeScript', 'Java', 'React', 'Next.js', 'Astro',
   'SolidJS', 'Tailwind CSS', 'Node.js', 'Express', 'TypeORM', 'Prisma',
@@ -25,12 +41,14 @@ const knowsAbout = [
     <meta name="description" content={description} />
     <meta name="author" content={info.fullName} />
     <meta name="theme-color" content="#ffffff" />
-    <meta property="og:type" content="website" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={url} />
+    <meta property="og:url" content={pageUrl} />
     <meta property="og:locale" content="es_CO" />
     <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

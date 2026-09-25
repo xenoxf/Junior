@@ -21,6 +21,7 @@ export type Project = {
   githubUrl?: string
   demoUrl?: string
   backendUrl?: string
+  backendDemoUrl?: string
   status: 'production' | 'development'
   maintenance: 'active' | 'stable' | 'archived'
   category: 'fullstack' | 'backend' | 'frontend' | 'desktop' | 'cli'
@@ -29,6 +30,9 @@ export type Project = {
   purpose?: string
   architecture?: string
   subProjects?: SubProject[]
+  role?: string
+  team?: string
+  license?: string
 }
 
 export type Service = {

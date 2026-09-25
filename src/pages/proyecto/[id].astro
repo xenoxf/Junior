@@ -1,0 +1,236 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Nav from '../../components/sections/Nav.tsx'
+import Footer from '../../components/sections/Footer.astro'
+import { projects, getProject, getRelatedProjects } from '../../lib/projects'
+import { projectDetails } from '../../lib/project-details'
+import '../../styles/project-detail.css'
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { id: p.id } }))
+}
+
+const { id } = Astro.params
+const project = getProject(id ?? '')
+if (!project) {
+  return Astro.redirect('/#proyectos')
+}
+
+const detail = projectDetails[project.id]
+const related = getRelatedProjects(project.id, 3)
+const idx = projects.findIndex((p) => p.id === project.id)
+const prev = projects[(idx - 1 + projects.length) % projects.length]
+const next = projects[(idx + 1) % projects.length]
+
+const pageTitle = `${project.name} · Caso técnico`
+const pageDesc = `${project.name}: ${project.description}. Arquitectura, stack, endpoints, despliegue y decisiones técnicas.`
+const site = 'https://xenooxf.vercel.app'
+const canonical = `${site}/proyecto/${project.id}`
+---
+
+<Layout title={pageTitle} description={pageDesc} canonical={canonical} ogType="article">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'TechArticle',
+      headline: project.name,
+      description: pageDesc,
+      author: { '@type': 'Person', name: 'Jesus Adrian Camacho Casierra' },
+      url: canonical,
+      about: project.tech,
+    })} />
+
+  <Nav client:load />
+  <main class="pd-wrap">
+    <div class="container">
+      <nav class="pd-breadcrumb" aria-label="Migas de pan">
+        <a href="/">Inicio</a><span>/</span>
+        <a href="/#proyectos">Proyectos</a><span>/</span>
+        <span>{project.name}</span>
+      </nav>
+
+      <header class="pd-hero">
+        <div class="pd-hero-text">
+          <h1 class="pd-title">{project.name}</h1>
+          <p class="pd-desc">{project.description}</p>
+          <p class="pd-long">{project.longDescription}</p>
+          <p class="pd-meta-line">{project.year} · {project.status === 'production' ? 'En producción' : 'En desarrollo'}</p>
+          <div class="pd-ctas">
+            {project.demoUrl && <a class="btn btn-solid" href={project.demoUrl} target="_blank" rel="noopener">Demo en vivo ↗</a>}
+            {project.githubUrl && <a class="btn btn-ghost" href={project.githubUrl} target="_blank" rel="noopener">Código {project.category === 'fullstack' ? 'frontend' : ''} ↗</a>}
+            {project.backendUrl && <a class="btn btn-ghost" href={project.backendUrl} target="_blank" rel="noopener">Código backend ↗</a>}
+            {project.backendDemoUrl && <a class="btn btn-ghost" href={project.backendDemoUrl} target="_blank" rel="noopener">API viva ↗</a>}
+          </div>
+        </div>
+        <figure class="pd-cover">
+          {project.image && <img src={project.image} alt={`Captura de ${project.name}`} decoding="async" onerror="this.remove()" />}
+          <figcaption>{project.name} — captura del proyecto.</figcaption>
+        </figure>
+      </header>
+
+      {detail ? (
+        <>
+          <section class="pd-section">
+            <div><span class="pd-section-num">01</span><h2>Contexto y propósito</h2></div>
+            <div class="pd-prose">
+              {detail.context.map((p) => <p>{p}</p>)}
+              {project.purpose && <p><strong>Propósito declarado:</strong> {project.purpose}</p>}
+            </div>
+          </section>
+
+          <section class="pd-section">
+            <div><span class="pd-section-num">02</span><h2>Arquitectura</h2></div>
+            <div class="pd-prose">
+              {project.architecture && <p>{project.architecture}</p>}
+              <pre class="pd-diagram">{detail.architectureDiagram}</pre>
+              <ul>{detail.architectureNotes.map((n) => <li>{n}</li>)}</ul>
+            </div>
+          </section>
+
+          <section class="pd-section">
+            <div><span class="pd-section-num">03</span><h2>Stack detallado</h2></div>
+            <div class="pd-prose">
+              <div class="pd-table-wrap">
+                <table class="pd-table">
+                  <thead><tr><th>Capa</th><th>Tecnología</th><th>Detalle</th></tr></thead>
+                  <tbody>
+                    {detail.stackTable.map((r) => <tr><td>{r.capa}</td><td><code>{r.tecnologia}</code></td><td>{r.detalle}</td></tr>)}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          {detail.modules && (
+            <section class="pd-section">
+              <div><span class="pd-section-num">04</span><h2>Módulos / servicios</h2></div>
+              <div class="pd-prose">
+                <ul>{detail.modules.map((m) => <li><strong>{m.name}:</strong> {m.description}</li>)}</ul>
+              </div>
+            </section>
+          )}
+
+          {detail.endpoints && (
+            <section class="pd-section">
+              <div><span class="pd-section-num">05</span><h2>Endpoints principales</h2></div>
+              <div class="pd-prose">
+                <div class="pd-table-wrap">
+                  <table class="pd-table">
+                    <thead><tr><th>Método</th><th>Ruta</th><th>Qué hace</th><th>Auth</th></tr></thead>
+                    <tbody>
+                      {detail.endpoints.map((e) => <tr><td><code>{e.method}</code></td><td><code>{e.path}</code></td><td>{e.description}</td><td>{e.auth}</td></tr>)}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {(detail.dataDiagram || detail.dataNotes) && (
+            <section class="pd-section">
+              <div><span class="pd-section-num">06</span><h2>Datos y conexiones</h2></div>
+              <div class="pd-prose">
+                {detail.dataDiagram && <pre class="pd-diagram">{detail.dataDiagram}</pre>}
+                {detail.dataNotes && <ul>{detail.dataNotes.map((n) => <li>{n}</li>)}</ul>}
+              </div>
+            </section>
+          )}
+
+          {detail.authSecurity && (
+            <section class="pd-section">
+              <div><span class="pd-section-num">07</span><h2>Autenticación y seguridad</h2></div>
+              <div class="pd-prose"><ul>{detail.authSecurity.map((s) => <li>{s}</li>)}</ul></div>
+            </section>
+          )}
+
+          {detail.frontend && (
+            <section class="pd-section">
+              <div><span class="pd-section-num">08</span><h2>Frontend y rutas</h2></div>
+              <div class="pd-prose">
+                {detail.frontend.routes && <ul>{detail.frontend.routes.map((r) => <li><code class="pd-inline-code">{r}</code></li>)}</ul>}
+                <ul>{detail.frontend.notes.map((n) => <li>{n}</li>)}</ul>
+              </div>
+            </section>
+          )}
+
+          <section class="pd-section">
+            <div><span class="pd-section-num">09</span><h2>Despliegue</h2></div>
+            <div class="pd-prose">
+              <p><strong>Dónde:</strong> {detail.deployment.where}</p>
+              <ul>{detail.deployment.how.map((h) => <li>{h}</li>)}</ul>
+              {detail.deployment.env && (
+                <>
+                  <p><strong>Variables de entorno clave (.env — tú pones los valores):</strong></p>
+                  <pre class="pd-code">{detail.deployment.env.join('\n')}</pre>
+                </>
+              )}
+            </div>
+          </section>
+
+          <section class="pd-section">
+            <div><span class="pd-section-num">10</span><h2>Metodología y decisiones</h2></div>
+            <div class="pd-prose"><ul>{detail.methodology.map((m) => <li>{m}</li>)}</ul></div>
+          </section>
+
+          <section class="pd-section">
+            <div><span class="pd-section-num">11</span><h2>Retos y soluciones</h2></div>
+            <div class="pd-prose">
+              {detail.challenges.map((c) => <div class="pd-challenge"><strong>{c.title}</strong><span>{c.solution}</span></div>)}
+            </div>
+          </section>
+
+          <section class="pd-section">
+            <div><span class="pd-section-num">12</span><h2>Qué aprendí</h2></div>
+            <div class="pd-prose"><ul>{detail.learnings.map((l) => <li>{l}</li>)}</ul></div>
+          </section>
+
+          <section class="pd-section">
+            <div><span class="pd-section-num">13</span><h2>Ejecutar en local</h2></div>
+            <div class="pd-prose"><pre class="pd-code">{detail.runLocally.join('\n')}</pre></div>
+          </section>
+
+          <section class="pd-section">
+            <div><span class="pd-section-num">14</span><h2>Próximos pasos</h2></div>
+            <div class="pd-prose"><ul>{detail.nextSteps.map((n) => <li>{n}</li>)}</ul></div>
+          </section>
+        </>
+      ) : (
+        <section class="pd-section">
+          <div><span class="pd-section-num">02</span><h2>Arquitectura</h2></div>
+          <div class="pd-prose"><p>{project.architecture}</p></div>
+        </section>
+      )}
+
+      <section class="pd-section">
+        <div><span class="pd-section-num">↗</span><h2>Seguir explorando</h2></div>
+        <div class="pd-prose">
+          <div class="pd-related">
+            {related.map((r) => (
+              <a class="pd-rel-card" href={`/proyecto/${r.id}`}>
+                <h3>{r.name}</h3>
+                <p>{r.description}</p>
+              </a>
+            ))}
+          </div>
+          <nav class="pd-nav">
+            <a href={`/proyecto/${prev.id}`}>← {prev.name}</a>
+            <a href="/#proyectos">Todos los proyectos</a>
+            <a href={`/proyecto/${next.id}`}>{next.name} →</a>
+          </nav>
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal')
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target) } })
+    }, { threshold: 0.12 })
+    revealEls.forEach((el) => io.observe(el))
+  } else {
+    revealEls.forEach((el) => el.classList.add('visible'))
+  }
+</script>

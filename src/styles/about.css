@@ -1,7 +1,11 @@
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
+  grid-template-columns: 1fr minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+.about-grid > * {
+  min-width: 0;
 }
 
 .about p {

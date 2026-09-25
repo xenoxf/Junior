@@ -1,7 +1,6 @@
 ---
 import type { Project } from '../types'
 import '../styles/project-card.css'
-import '../styles/modal.css'
 
 interface Props {
   project: Project
@@ -10,89 +9,30 @@ interface Props {
 
 const { project, index } = Astro.props
 const num = String(index).padStart(2, '0')
+const detailUrl = `/proyecto/${project.id}`
 ---
 
 <article class="card" data-category={project.category}>
   <span class="card-index">{num}</span>
-  {
-    project.image && (
-      <div class="card-media">
-        <img src={project.image} alt={`Captura de ${project.name}`} loading="lazy" />
-      </div>
-    )
-  }
+  <a class="card-media-link" href={detailUrl} aria-label={`Ver caso técnico de ${project.name}`}>
+    {
+      project.image && (
+        <div class="card-media">
+          <img src={project.image} alt={`Captura de ${project.name}`} loading="lazy" decoding="async" onerror="this.closest('.card-media')?.remove()" />
+        </div>
+      )
+    }
+  </a>
   <div class="card-body">
-    <h3 class="card-name">{project.name}</h3>
+    <h3 class="card-name">
+      <a href={detailUrl}>{project.name}</a>
+    </h3>
     <p class="card-desc">{project.description}</p>
 
-    <div class="card-meta">
-      <span class="dot"></span>
-      <span>{project.status === 'production' ? 'En producción' : 'En desarrollo'}</span>
-      <span>·</span>
-      <span>{project.year}</span>
-    </div>
-
-    <div class="card-tags">
-      {project.tech.map((t) => <span class="tag">{t}</span>)}
-    </div>
-
     <div class="card-links">
+      <a href={detailUrl} class="card-details-link">Ver caso técnico →</a>
       {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener">Código</a>}
       {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener">Demo</a>}
-      <button type="button" class="card-details" data-details>Ver detalles</button>
     </div>
   </div>
-
-  <dialog class="project-dialog" aria-labelledby={`dialog-title-${project.id}`}>
-    <div class="dialog-head">
-      <div class="dialog-heading">
-        {project.image && <img class="dialog-image" src={project.image} alt="" />}
-        <div>
-          <div class="dialog-eyebrow">
-            <span class="dialog-status">{project.status === 'production' ? 'En producción' : 'En desarrollo'}</span>
-            <span>{project.category}</span>
-            <span>{project.year}</span>
-          </div>
-          <h3 class="dialog-title" id={`dialog-title-${project.id}`}>{project.name}</h3>
-        </div>
-      </div>
-      <button type="button" class="dialog-close" data-close aria-label="Cerrar detalles">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="dialog-body">
-      <p class="dialog-sub">{project.description}</p>
-      <p class="dialog-lead">{project.longDescription}</p>
-
-      {
-        project.purpose && (
-          <div class="dialog-block">
-            <h4>Propósito</h4>
-            <p>{project.purpose}</p>
-          </div>
-        )
-      }
-
-      {
-        project.architecture && (
-          <div class="dialog-block">
-            <h4>Arquitectura</h4>
-            <p>{project.architecture}</p>
-          </div>
-        )
-      }
-
-      <div class="dialog-block">
-        <h4>Tecnologías</h4>
-        <div class="dialog-tags">
-          {project.tech.map((t) => <span class="tag">{t}</span>)}
-        </div>
-      </div>
-
-      <div class="dialog-links">
-        {project.githubUrl && <a class="dialog-link-primary" href={project.githubUrl} target="_blank" rel="noopener">Código fuente <span aria-hidden="true">↗</span></a>}
-        {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener">Demo en vivo <span aria-hidden="true">↗</span></a>}
-      </div>
-    </div>
-  </dialog>
 </article>

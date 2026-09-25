@@ -1,0 +1,299 @@
+.pd-wrap {
+  border-top: 1px solid var(--line);
+  padding: clamp(1.25rem, 4vw, 2rem) 0 clamp(3rem, 8vw, 5rem);
+}
+
+.pd-breadcrumb {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.pd-breadcrumb a {
+  border-bottom: 1px solid transparent;
+}
+
+.pd-breadcrumb a:hover {
+  border-bottom-color: var(--fg);
+  color: var(--fg);
+}
+
+.pd-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.pd-hero-text {
+  max-width: 72ch;
+}
+
+.pd-title {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.pd-desc {
+  margin-top: 0.9rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 60ch;
+}
+
+.pd-long {
+  margin-top: 1rem;
+  font-size: 0.98rem;
+  max-width: 68ch;
+}
+
+.pd-meta-line {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.pd-ctas {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.pd-cover {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+  margin: 0;
+}
+
+.pd-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pd-cover figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  padding: 0.6rem 0.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.pd-section {
+  border-top: 1px solid var(--line);
+  padding: clamp(1.5rem, 4vw, 2rem) 0;
+  display: grid;
+  /* minmax(0, …) impide que <pre> y tablas ensanchen la página en móvil */
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: clamp(1rem, 4vw, 2rem);
+}
+
+.pd-section > * {
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .pd-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.pd-section-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pd-section h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.9rem;
+}
+
+.pd-prose p {
+  margin-bottom: 0.85rem;
+  max-width: 72ch;
+  font-size: 0.96rem;
+}
+
+.pd-prose ul {
+  margin: 0 0 0.9rem 1.1rem;
+  font-size: 0.94rem;
+  max-width: 72ch;
+}
+
+.pd-prose li {
+  margin-bottom: 0.4rem;
+}
+
+.pd-diagram {
+  background: #0e1113;
+  color: #d7e3ea;
+  border: 1px solid var(--line);
+  padding: 1.1rem 1.2rem;
+  overflow-x: auto;
+  /* Scroll táctil con impulso y sin arrastrar la página al llegar al borde */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 1rem 0;
+  white-space: pre;
+  max-width: 100%;
+}
+
+.pd-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  border: 1px solid var(--line);
+  margin: 1rem 0;
+  max-width: 100%;
+}
+
+.pd-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.pd-table th,
+.pd-table td {
+  text-align: left;
+  padding: 0.65rem 0.8rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+/* Tablas densas en pantallas angostas: menos padding, mismo contenido */
+@media (max-width: 560px) {
+  .pd-table {
+    font-size: 0.82rem;
+  }
+  .pd-table th,
+  .pd-table td {
+    padding: 0.55rem 0.6rem;
+  }
+  .pd-diagram {
+    font-size: 0.72rem;
+    padding: 0.9rem;
+  }
+}
+
+.pd-table th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  background: var(--surface);
+}
+
+.pd-table code,
+.pd-inline-code {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 0.1rem 0.35rem;
+}
+
+.pd-challenge {
+  border: 1px solid var(--line);
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.7rem;
+  background: var(--surface);
+}
+
+.pd-challenge strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.pd-code {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  white-space: pre;
+  margin: 0.8rem 0;
+  max-width: 100%;
+}
+
+.pd-related {
+  display: grid;
+  /* Intrínseca: 3 en desktop, 2 en tablet, 1 en móvil, sin breakpoints */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pd-rel-card {
+  border: 1px solid var(--line);
+  padding: 1.1rem;
+  display: block;
+}
+
+.pd-rel-card:hover {
+  border-color: var(--fg);
+}
+
+.pd-rel-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.pd-rel-card p {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.pd-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.5rem;
+}
+
+.pd-nav a {
+  font-weight: 700;
+  font-size: 0.9rem;
+  /* Táctil: renglón alto también aquí */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* En móvil la navegación prev/todos/next se apila a ancho completo */
+@media (max-width: 560px) {
+  .pd-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pd-nav a {
+    justify-content: center;
+    border: 1px solid var(--line);
+    padding: 0.625rem 1rem;
+  }
+}

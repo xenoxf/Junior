@@ -22,6 +22,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   scroll-padding-top: calc(var(--nav-height) + 16px);
+  overflow-x: clip;
 }
 
 body {
@@ -29,7 +30,21 @@ body {
   background: var(--bg);
   color: var(--fg);
   line-height: 1.6;
-  font-size: 16px;
+  /* Tipo fluido: base accesible en rem (respeta zoom) + escala suave por viewport */
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 a {
@@ -40,6 +55,13 @@ a {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
+}
+
+a,
+button {
+  /* Elimina el retardo de 300ms del tap en táctil */
+  touch-action: manipulation;
 }
 
 ::selection {
@@ -56,11 +78,12 @@ img {
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  /* Padding lateral fluido: respira en desktop, ahorra píxeles en móvil */
+  padding: 0 clamp(1rem, 4vw, 1.5rem);
 }
 
 .section {
-  padding: 5rem 0;
+  padding: clamp(3rem, 8vw, 5rem) 0;
   border-top: 1px solid var(--line);
 }
 
@@ -87,8 +110,11 @@ img {
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.7rem 1.25rem;
+  /* Objetivo táctil mínimo 44px (Apple HIG / Material) */
+  min-height: 44px;
   font-size: 0.9rem;
   font-weight: 600;
   border: 1px solid var(--fg);

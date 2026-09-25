@@ -12,6 +12,8 @@
   background: transparent;
   color: var(--muted);
   padding: 0.4rem 0.95rem;
+  /* Objetivo táctil mínimo sin cambiar el aspecto */
+  min-height: 44px;
   border-radius: 0;
   cursor: pointer;
   transition: border-color 160ms ease, color 160ms ease;
@@ -29,12 +31,23 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  /*
+   * Rejilla intrínseca: el número de columnas lo decide el contenido,
+   * no el dispositivo. 2 columnas en desktop, 1 en móvil, sin saltos
+   * bruscos en breakpoints arbitrarios.
+   */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
+  /* Las cards responden a su columna, no al viewport (container queries) */
+  container-type: inline-size;
 }
 
-@media (max-width: 760px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
+/* Columna angosta (móvil): card más compacta */
+@container (max-width: 500px) {
+  .card-body {
+    padding: 1.1rem 1rem 1.2rem;
+  }
+  .card-name {
+    font-size: 1.05rem;
   }
 }

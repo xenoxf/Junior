@@ -58,7 +58,7 @@ import Footer from '../components/sections/Footer.astro'
   )
   document.querySelectorAll('section[id]').forEach((s) => spy.observe(s))
 
-  // Filtros de proyectos
+  // Filtros de proyectos (las cards ahora enlazan a /proyecto/[id], sin modal)
   const filterBtns = Array.from(document.querySelectorAll('.filter-btn'))
   const cards = Array.from(document.querySelectorAll('.card'))
   filterBtns.forEach((btn) => {
@@ -70,27 +70,6 @@ import Footer from '../components/sections/Footer.astro'
         const match = filter === 'all' || card.getAttribute('data-category') === filter
         card.style.display = match ? '' : 'none'
       })
-    })
-  })
-
-  // Modal de detalle de proyecto (clic en la card o en "Ver detalles")
-  document.querySelectorAll('.card').forEach((card) => {
-    const dialog = card.querySelector('.project-dialog') as HTMLDialogElement | null
-    if (!dialog) return
-    card.addEventListener('click', (e) => {
-      if ((e.target as HTMLElement).closest('a')) return
-      if ((e.target as HTMLElement).closest('.project-dialog')) return
-      if (dialog.open) return
-      dialog.showModal()
-    })
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) dialog.close()
-    })
-  })
-
-  document.querySelectorAll('[data-close]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      ;(btn.closest('dialog') as HTMLDialogElement | null)?.close()
     })
   })
 </script>

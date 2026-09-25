@@ -4,6 +4,8 @@
   background: var(--bg);
   display: flex;
   flex-direction: column;
+  /* Que el contenido largo nunca ensanche la columna del grid */
+  min-width: 0;
   transition: border-color 160ms ease, transform 160ms ease;
 }
 
@@ -45,6 +47,16 @@
   transform: scale(1.03);
 }
 
+/* Sin hover real en táctil: el zoom se quedaba "pegado" tras el tap */
+@media (hover: none) {
+  .card:hover {
+    transform: none;
+  }
+  .card:hover .card-media img {
+    transform: none;
+  }
+}
+
 .card-body {
   padding: 1.5rem 1.25rem 1.4rem;
   display: flex;
@@ -65,53 +77,39 @@
   flex: 1;
 }
 
-.card-meta {
-  margin-top: 0.85rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.card-meta .dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--fg);
-  display: inline-block;
-}
-
-.card-tags {
-  margin-top: 0.9rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.tag {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  padding: 0.22rem 0.55rem;
-  border: 1px solid var(--line);
-  color: var(--muted);
-}
-
 .card-links {
   margin-top: 1.1rem;
   display: flex;
-  gap: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
   font-size: 0.85rem;
   font-weight: 600;
 }
 
 .card-links a {
   border-bottom: 1px solid transparent;
+  /* Área táctil de 44px manteniendo el estilo de texto */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .card-links a:hover {
   border-bottom-color: var(--fg);
+}
+
+.card-media-link {
+  display: block;
+}
+
+.card-name a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.card-details-link {
+  color: var(--fg);
+  border-bottom: 1px solid var(--fg) !important;
 }
 
 .card-sub {
