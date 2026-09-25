@@ -31,8 +31,10 @@ const detailUrl = `/proyecto/${project.id}`
 
     <div class="card-links">
       <a href={detailUrl} class="card-details-link">Ver caso técnico →</a>
-      {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener">Código</a>}
+      {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener">{project.backendUrl ? 'Frontend' : 'Código'}</a>}
+      {project.backendUrl && <a href={project.backendUrl} target="_blank" rel="noopener">Backend</a>}
       {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener">Demo</a>}
+      {project.backendDemoUrl && <a href={project.backendDemoUrl} target="_blank" rel="noopener">API</a>}
     </div>
   </div>
 </article>

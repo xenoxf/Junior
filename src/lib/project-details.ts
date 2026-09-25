@@ -403,133 +403,39 @@ default glassmorphism EMBEBIDA ◀── fallback si falta/falla/corrupto ──
     nextSteps: ['Hot-reload de skins sin reinicio.', 'Skins de usuario en AppData.', 'window-vibrancy en Win/Mac + sincronización.'],
   },
 
-  'kluk-dc': {
-    context: ['Panel administrativo del e-commerce KLUK: catálogo, órdenes y reportes con gráficas. Consume KLUK API con Axios y despliega en kluk-dc.vercel.app.'],
-    architectureDiagram: `Navegador (Next.js 16, React 19, Tailwind 4)
-  Axios + react-hook-form + Recharts + Radix
-   ▼
-KLUK API (NestJS) ── JWT ── PostgreSQL + Cloudinary`,
-    architectureNotes: ['Next 16 App Router con rutas de admin; tablas, formularios y dashboards con Recharts.', 'Auth con JWT guardado en cliente; Axios con interceptores hacia la API.'],
-    stackTable: [
-      { capa: 'Framework', tecnologia: 'Next.js 16 / React 19', detalle: 'Panel SPA/SSR admin' },
-      { capa: 'HTTP', tecnologia: 'Axios', detalle: 'Cliente hacia KLUK API' },
-      { capa: 'UI/Data', tecnologia: 'Radix + Tailwind + Recharts', detalle: 'Tablas, diálogos, gráficas' },
-      { capa: 'Backend', tecnologia: 'KLUK (NestJS)', detalle: 'Ver /proyecto/kluk' },
-    ],
-    frontend: {
-      routes: ['/dashboard', '/productos, /categorías, /órdenes', '/reportes, /usuarios'],
-      notes: ['CRUD completo de catálogo con subida de imágenes delegada a la API (Cloudinary).'],
-    },
-    deployment: {
-      where: 'Vercel (kluk-dc.vercel.app)',
-      how: ['next build con NEXT_PUBLIC_API_URL a la API', 'Variables por entorno (prod/staging)'],
-    },
-    methodology: ['UI admin por recursos (uno por entidad KLUK).', 'Validación cliente + servidor (DTOs).'],
-    challenges: [{ title: 'Imágenes pesadas', solution: 'Upload vía API con transformaciones Cloudinary.' }],
-    learnings: ['Dashboards con Next 16 + Recharts.', 'Integración panel ↔ API con JWT.'],
-    runLocally: ['git clone https://github.com/xenoxf/kluk-dc && npm install && npm run dev (requiere KLUK API)'],
-    nextSteps: ['Roles y permisos finos.', 'Exportes CSV/PDF de reportes.'],
-  },
-
   kluk: {
-    context: ['API del e-commerce KLUK: productos, categorías, carrito, favoritos, reportes, usuarios y subida de imágenes. NestJS 10 + TypeORM + PostgreSQL + JWT + Cloudinary.'],
-    architectureDiagram: `Dashboard / Storefront ──REST + JWT──▶ KLUK API (NestJS 10)
+    context: ['API del e-commerce KLUK: catálogo de productos, carrito de compras, favoritos, usuarios con autenticación, reportes agregados y subida de imágenes a Cloudinary. NestJS 10 + TypeORM + PostgreSQL + JWT, con documentación Swagger.'],
+    architectureDiagram: `Storefront / clientes ──REST + JWT──▶ KLUK API (NestJS 10)
   auth │ users │ productos │ carrito │ favorites │ reportes │ cloudinary
    ▼
 PostgreSQL (TypeORM) + Cloudinary (media)`,
-    architectureNotes: ['Módulos por dominio con guards JWT; reportes agregados para el dashboard.', 'Cloudinary centralizado en módulo propio para firma y subida.'],
+    architectureNotes: ['Módulos por dominio (users, auth, productos, carrito, favorites, reportes, cloudinary) con validación class-validator y Helmet.', 'Subidas con multer + streamifier hacia Cloudinary centralizado en módulo propio.', 'Swagger (@nestjs/swagger) como documentación viva en /api.'],
     stackTable: [
       { capa: 'Framework', tecnologia: 'NestJS 10 + TS', detalle: 'Modular por dominio' },
-      { capa: 'BD', tecnologia: 'TypeORM + PostgreSQL', detalle: 'Relaciones producto-categoría-carrito' },
-      { capa: 'Auth', tecnologia: 'JWT + guards', detalle: 'Roles cliente/admin' },
-      { capa: 'Media', tecnologia: 'Cloudinary', detalle: 'Imágenes de producto' },
+      { capa: 'BD', tecnologia: 'TypeORM 0.3 + PostgreSQL', detalle: 'Driver pg; synchronize:true solo dev' },
+      { capa: 'Auth', tecnologia: 'JWT + bcryptjs', detalle: 'Login + guards' },
+      { capa: 'Media', tecnologia: 'Cloudinary + multer', detalle: 'Imágenes de producto vía streamifier' },
+      { capa: 'Docs', tecnologia: 'Swagger', detalle: 'OpenAPI en /api' },
     ],
     endpoints: [
-      { method: 'CRUD', path: '/productos · /categorías', description: 'Catálogo', auth: 'JWT (escritura admin)' },
-      { method: 'CRUD', path: '/carrito · /favorites', description: 'Compra y favoritos por usuario', auth: 'JWT' },
+      { method: 'CRUD', path: '/productos', description: 'Catálogo de productos', auth: 'JWT (escritura admin)' },
+      { method: 'CRUD', path: '/carrito', description: 'Carrito por usuario', auth: 'JWT' },
+      { method: 'CRUD', path: '/favorites', description: 'Favoritos por usuario', auth: 'JWT' },
       { method: 'GET', path: '/reportes/*', description: 'Agregados para dashboard', auth: 'JWT admin' },
       { method: 'CRUD', path: '/users · /auth/*', description: 'Usuarios y login', auth: 'Mixto' },
+      { method: 'GET', path: '/api', description: 'Documentación Swagger', auth: 'Ninguna' },
     ],
-    dataDiagram: `User 1──* Carrito 1──* Item *──1 Producto *──1 Categoría
+    dataDiagram: `User 1──* Carrito 1──* Item *──1 Producto
 User *──* Favoritos ── Producto · Reportes = agregados SQL`,
     deployment: {
       where: 'Render/Railway/VPS + PostgreSQL + Cloudinary',
-      how: ['npm install && npm run build && npm run start:prod', 'Env: DATABASE_URL, JWT_SECRET, CLOUDINARY_*'],
+      how: ['npm install && npm run build && npm run start:prod', 'Env: DB_HOST/PORT/USER/PASS/NAME, SSL, JWT_SECRET, CLOUDINARY_*'],
     },
     methodology: ['Dominio e-commerce clásico para practicar NestJS a fondo.', 'Swagger como documentación viva.'],
     challenges: [{ title: 'Consistencia carrito-stock', solution: 'Transacciones TypeORM en checkout.' }],
-    learnings: ['NestJS modular, guards y uploads.', 'Reportes agregados para dashboards.'],
-    runLocally: ['git clone https://github.com/xenoxf/kluk && npm install', 'Configurar .env (DB, JWT, Cloudinary) y npm run start:dev'],
-    nextSteps: ['Pagos (Stripe/MercadoPago).', 'Migraciones y tests e2e.'],
+    learnings: ['NestJS modular, guards y uploads a Cloudinary.', 'Reportes agregados para dashboards.'],
+    runLocally: ['git clone https://github.com/xenoxf/kluk && npm install', 'Configurar .env (DB_*, SSL, JWT_SECRET, CLOUDINARY_*) y npm run start:dev'],
+    nextSteps: ['Pagos (Stripe/MercadoPago).', 'Migraciones versionadas y tests e2e.'],
   },
 
-  'back-os': {
-    context: ['API genérica con Express 5 + Prisma + PostgreSQL: auth JWT + Google OAuth, rate-limit, Helmet, Zod y Nodemailer. Ideal para prototipos que necesitan backend rápido sin NestJS.'],
-    architectureDiagram: `Clientes ──REST + JWT/API key──▶ Express 5 (middlewares)
- requireAuth │ requireKey │ helmet │ rate-limit │ zod
-   ▼
-Prisma Client ──▶ PostgreSQL (+ Nodemailer / Google OAuth)`,
-    architectureNotes: ['Estructura simple: index.js + middlewares/ + prisma/schema; validación con Zod por ruta.', 'Bloqueo de bots por User-Agent, límite 10kb de body, 60 req/min por IP.'],
-    stackTable: [
-      { capa: 'HTTP', tecnologia: 'Express 5', detalle: 'Enrutado + middlewares propios' },
-      { capa: 'Datos', tecnologia: 'Prisma 6 + PostgreSQL', detalle: 'Schema versionado' },
-      { capa: 'Auth', tecnologia: 'JWT + Google OAuth + bcrypt', detalle: 'Sesiones con express-session donde aplica' },
-      { capa: 'Validación', tecnologia: 'Zod', detalle: 'Schemas por endpoint' },
-      { capa: 'Seguridad', tecnologia: 'Helmet + rate-limit + xss-clean', detalle: 'Headers + throttling' },
-    ],
-    endpoints: [
-      { method: 'POST', path: '/auth/*', description: 'Registro/login + Google', auth: 'API key' },
-      { method: 'CRUD', path: '/recursos/*', description: 'Endpoints genéricos del dominio', auth: 'JWT' },
-    ],
-    deployment: {
-      where: 'Render/Railway/VPS + PostgreSQL',
-      how: ['npm install && npx prisma migrate deploy && node index.js', 'Env: DATABASE_URL, JWT_SECRET, GOOGLE_CLIENT_ID, MAIL_*'],
-    },
-    methodology: ['Express mínimo viable para validar ideas antes de pasar a NestJS.', 'Prisma como única fuente del modelo.'],
-    challenges: [{ title: 'Compilado TS a JS', solution: 'Build a JS plano (index.js) para deploy simple.' }],
-    learnings: ['Middlewares Express desde cero.', 'Prisma + OAuth sin framework opinionado.'],
-    runLocally: ['git clone https://github.com/xenoxf/back-OS && npm install', 'Configurar .env + npx prisma migrate dev && node index.js'],
-    nextSteps: ['Migrar a TypeScript puro con tsc.', 'Tests con Vitest/Supertest.'],
-  },
-
-  'pomodoro-react': {
-    context: ['Temporizador Pomodoro minimalista con Vite 6 + React 19. Sin backend: sirve para practicar hooks, timers y UX de productividad. Desplegado en pomodoro-junior.vercel.app.'],
-    architectureDiagram: `Vite 6 SPA (React 19 hooks)
-Timer (setInterval/useEffect) + localStorage rachas
-   ▼
-Vercel estático`,
-    architectureNotes: ['Estado con useState/useEffect + refs para intervalos precisos; persistencia local de sesiones.', 'Sin dependencias de backend: 100% cliente.'],
-    stackTable: [{ capa: 'App', tecnologia: 'Vite 6 + React 19', detalle: 'SPA estática' }],
-    frontend: {
-      routes: ['/ (timer trabajo/descanso, rachas)'],
-      notes: ['Accesibilidad: anuncios de cambio de fase y atajos de teclado.'],
-    },
-    deployment: {
-      where: 'Vercel estático',
-      how: ['npm run build → dist a Vercel'],
-    },
-    methodology: ['Proyecto de aprendizaje corto para dominar efectos y timers.'],
-    challenges: [{ title: 'Deriva del timer', solution: 'Timestamp base + corrección por tick en vez de contar ticks.' }],
-    learnings: ['Hooks avanzados y limpieza de efectos.'],
-    runLocally: ['git clone https://github.com/xenoxf/PomodoroReact && npm install && npm run dev'],
-    nextSteps: ['Sonidos y notificaciones.', 'Estadísticas semanales.'],
-  },
-
-  'juntxo-player': {
-    context: ['Reproductor MP3 por consola en Java. Proyecto deliberadamente fuera del stack JS/TS para aprender Java: I/O, hilos de reproducción y CLI.'],
-    architectureDiagram: `CLI Java (main + Player + Playlist)
-  javax.sound / librería MP3 ──▶ parlantes
-  args + Scanner ──▶ comandos play/pause/next`,
-    architectureNotes: ['POO clásica: clases Player, Playlist, CLI; manejo de excepciones de I/O.', 'Sin dependencias web: compilación con javac.'],
-    stackTable: [{ capa: 'App', tecnologia: 'Java (CLI)', detalle: 'javac + JAR' }],
-    deployment: {
-      where: 'Local (JRE)',
-      how: ['javac *.java && java JuntxoPlayer <carpeta-mp3>'],
-    },
-    methodology: ['Aprender un segundo lenguaje con un proyecto completo, no tutoriales sueltos.'],
-    challenges: [{ title: 'Cortes entre canciones', solution: 'Buffer y precarga de la siguiente pista.' }],
-    learnings: ['Java base, hilos y audio.'],
-    runLocally: ['git clone https://github.com/xenoxf/juntxo-player && javac *.java && java Main'],
-    nextSteps: ['GUI mínima (JavaFX).', 'Soporte playlists M3U.'],
-  },
 }
