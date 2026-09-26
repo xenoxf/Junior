@@ -4,7 +4,7 @@ export const info: Info = {
   name: 'Jesus Camacho',
   fullName: 'Jesus Adrian Camacho Casierra',
   title: 'Full Stack Developer',
-  tagline: 'Creando productos web con JavaScript y TypeScript.',
+  tagline: 'Creador de cosas usando código de herramienta',
   bio: 'Desarrollador full stack especializado en JavaScript y TypeScript. Construyo aplicaciones web con React, Astro, Next.js y Backend con Node.js (Nest, Express, TypeORM, Prisma). Me gusta aprender haciendo porque cada proyecto es una oportunidad para dominar algo más.',
   shortBio: 'Buenas soy Jesus tengo 16 años y soy un programador fullstack, especializado en JavaScript / TypeScript, React, Astro, Next.js, Nest.js, Node.js y con las capacidades de aprender muchas más tecnologias',
   philosophy: 'Creo en el código limpio, la arquitectura pensada y el aprendizaje constante. Mi stack principal es JS/TS, con el que construyo productos reales. También exploro otros lenguajes como Java y Go porque salir de lo conocido es la mejor forma de crecer.',
@@ -18,7 +18,7 @@ export const info: Info = {
   age: 16,
   nationality: 'Colombia',
   aliases: [
-    'xenoxf',
+    'Xenooxf',
     'Jesus Casierra',
   ],
 }
